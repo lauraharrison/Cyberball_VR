@@ -1,0 +1,13 @@
+Notes 3/14/17
+If you open the scene BedroomCharacters under the folder: Assets\Brain you will find our latest integration.
+Currently you can move around as a standard first person controller(mouse+asdw keys) and throw the ball to either
+-the left (letter "j" in the keyboard) 
+-or the right person (letter "L" in the keyboard)
+
+You will notice we have decent animations from mixamo for walk, run, idle, waving and throwing. 
+The only animation different for the man or woman is the walk cycle, but we are also planing to have more than one idle, 
+alternating them to have a more natural feeling.
+
+We are using a kind of handshake as "catch" but you will notice the timing to actually catch the ball is not well tuned. 
+I did not want to spend time tuning it because it is just temporary. I imported the model to maya and I am doing some 
+tests to create a better catch animation.
