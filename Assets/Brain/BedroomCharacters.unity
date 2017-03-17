@@ -1157,6 +1157,10 @@ MonoBehaviour:
   includePlayerPercentage: 0.5
   throwTime: 0.8
   smoothRot: 0.8
+  newForth: {x: 0, y: 0, z: 0}
+  lookingTarget: 0
+  minWaitThrow: 2
+  maxWaitThrow: 5
 --- !u!1 &66435497
 GameObject:
   m_ObjectHideFlags: 0
@@ -2647,7 +2651,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000013541257760, guid: 7a748481462eca645b1063432cba4d61, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 5.4
+      value: 5.296851
       objectReference: {fileID: 0}
     - target: {fileID: 4000013541257760, guid: 7a748481462eca645b1063432cba4d61, type: 2}
       propertyPath: m_LocalPosition.y
@@ -2655,7 +2659,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000013541257760, guid: 7a748481462eca645b1063432cba4d61, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 2.31
+      value: 2.2965574
       objectReference: {fileID: 0}
     - target: {fileID: 4000013541257760, guid: 7a748481462eca645b1063432cba4d61, type: 2}
       propertyPath: m_LocalRotation.x
@@ -2663,7 +2667,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000013541257760, guid: 7a748481462eca645b1063432cba4d61, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.7154253
+      value: 0.45520568
       objectReference: {fileID: 0}
     - target: {fileID: 4000013541257760, guid: 7a748481462eca645b1063432cba4d61, type: 2}
       propertyPath: m_LocalRotation.z
@@ -2671,7 +2675,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000013541257760, guid: 7a748481462eca645b1063432cba4d61, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.6986892
+      value: 0.89038634
       objectReference: {fileID: 0}
     - target: {fileID: 4000013541257760, guid: 7a748481462eca645b1063432cba4d61, type: 2}
       propertyPath: m_RootOrder
@@ -2711,7 +2715,17 @@ Prefab:
       propertyPath: m_Size.x
       value: 0.6
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 114000010185699754, guid: 7a748481462eca645b1063432cba4d61,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013541257760, guid: 7a748481462eca645b1063432cba4d61, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 54.156002
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114000011850261404, guid: 7a748481462eca645b1063432cba4d61, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 7a748481462eca645b1063432cba4d61, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &181107322
@@ -3126,6 +3140,11 @@ Texture2D:
     offset: 0
     size: 0
     path: 
+--- !u!4 &233711111 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4329920965457516, guid: a5534d09cab41254991a7ae79a470676,
+    type: 2}
+  m_PrefabInternal: {fileID: 1177899724}
 --- !u!1 &237820946
 GameObject:
   m_ObjectHideFlags: 0
@@ -5765,6 +5784,26 @@ Prefab:
       propertyPath: m_Name
       value: Remy
       objectReference: {fileID: 0}
+    - target: {fileID: 114504842893342670, guid: 2df34ea96c0ae934aa33300501dcc2e4,
+        type: 2}
+      propertyPath: headTransform
+      value: 
+      objectReference: {fileID: 719358262}
+    - target: {fileID: 114504842893342670, guid: 2df34ea96c0ae934aa33300501dcc2e4,
+        type: 2}
+      propertyPath: smoothRot
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114504842893342670, guid: 2df34ea96c0ae934aa33300501dcc2e4,
+        type: 2}
+      propertyPath: maxWaitThrow
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114504842893342670, guid: 2df34ea96c0ae934aa33300501dcc2e4,
+        type: 2}
+      propertyPath: tossSpeedx
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2df34ea96c0ae934aa33300501dcc2e4, type: 2}
   m_IsPrefabParent: 0
@@ -7855,6 +7894,11 @@ Texture2D:
     offset: 0
     size: 0
     path: 
+--- !u!4 &719358262 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4950797357540908, guid: 2df34ea96c0ae934aa33300501dcc2e4,
+    type: 2}
+  m_PrefabInternal: {fileID: 532771131}
 --- !u!1 &719629634
 GameObject:
   m_ObjectHideFlags: 0
@@ -12842,6 +12886,26 @@ Prefab:
       propertyPath: m_Name
       value: Stefani
       objectReference: {fileID: 0}
+    - target: {fileID: 114751298514254916, guid: a5534d09cab41254991a7ae79a470676,
+        type: 2}
+      propertyPath: smoothRot
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114751298514254916, guid: a5534d09cab41254991a7ae79a470676,
+        type: 2}
+      propertyPath: headTransform
+      value: 
+      objectReference: {fileID: 233711111}
+    - target: {fileID: 114751298514254916, guid: a5534d09cab41254991a7ae79a470676,
+        type: 2}
+      propertyPath: minWaitThrow
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114751298514254916, guid: a5534d09cab41254991a7ae79a470676,
+        type: 2}
+      propertyPath: maxWaitThrow
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a5534d09cab41254991a7ae79a470676, type: 2}
   m_IsPrefabParent: 0
@@ -17278,6 +17342,10 @@ MonoBehaviour:
   includePlayerPercentage: 0.5
   throwTime: 0.8
   smoothRot: 0.8
+  newForth: {x: 0, y: 0, z: 0}
+  lookingTarget: 0
+  minWaitThrow: 2
+  maxWaitThrow: 5
 --- !u!28 &1616873606
 Texture2D:
   m_ObjectHideFlags: 0

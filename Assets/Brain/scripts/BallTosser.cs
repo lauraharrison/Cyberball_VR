@@ -4,6 +4,8 @@ using System.Collections;
 public class BallTosser : MonoBehaviour {
     public Transform targetLeft;
     public Transform targetRight;
+	BallTosser leftTosser;
+	BallTosser rightTosser;	
 
     public Transform rightHandLoc;
     public Transform leftHandLoc;
@@ -21,12 +23,18 @@ public class BallTosser : MonoBehaviour {
 	public float smoothRot = 0.5f;
  	Animator myAnim;
 	Transform myTransform;
-	Vector3 newForth = new Vector3();
-	bool lookingTarget;
+	public Vector3 newForth = new Vector3();
+	public bool lookingTarget;
+	
+	public float minWaitThrow = 2.0f;
+	public float maxWaitThrow = 5.0f;
 
     // Use this for initialization
     void Start () {
 		myTransform = transform;
+		
+		leftTosser = targetLeft.GetComponent<BallTosser>();
+		rightTosser = targetRight.GetComponent<BallTosser>();
 		
         if(!isplayer){
 			myAnim = GetComponent<Animator>();
@@ -68,17 +76,19 @@ public class BallTosser : MonoBehaviour {
         haveBall = false;
 		
 		//Random wait before throwing the next ball
-        yield return new WaitForSeconds(Random.Range(0.0f, 5.0f));
-        if(Random.Range(0.0f, 1.0f) <= includePlayerPercentage)
+        yield return new WaitForSeconds(Random.Range(minWaitThrow, maxWaitThrow));
+        if(Random.Range(0.0f, 1.0f) <= includePlayerPercentage){
             StartCoroutine(AnimateThrow(false));
-        else
+		}
+        else{
             StartCoroutine(AnimateThrow(true));
+		}
     }
 	
 	IEnumerator AnimateThrow(bool left){
 		if (left)
         {
-            newForth = targetLeft.position - myTransform.position;
+            newForth = targetLeft.position - myTransform.position;			
 		}
 		else{
 			newForth = targetRight.position - myTransform.position;
@@ -97,11 +107,16 @@ public class BallTosser : MonoBehaviour {
         {
             origin = leftHandLoc.position;
             target = targetLeft;
+			//make right player look to left player
+			rightTosser.newForth = targetLeft.position - targetRight.position;
+			rightTosser.lookingTarget = true;
         }
         else
         {
             origin = rightHandLoc.position;
             target = targetRight;
+			leftTosser.newForth = targetRight.position - targetLeft.position;
+			leftTosser.lookingTarget = true;
         }
 
         GameObject ball = (GameObject)GameObject.Instantiate(ballPrefab, origin, Quaternion.identity);
@@ -138,6 +153,7 @@ public class BallTosser : MonoBehaviour {
         myBall.SetActive(true);        
     }
 	void prepareToTakeBall(float impactIn){
+		lookingTarget = false;
 		StartCoroutine(CatchBall(impactIn));
 	}
 	IEnumerator CatchBall(float impactIn) {
@@ -145,15 +161,14 @@ public class BallTosser : MonoBehaviour {
 		myAnim.SetBool("catch",true);
         yield return new WaitForSeconds(0.8f);
 		myAnim.SetBool("catch",false);
-		myBall.SetActive(true);
-        haveBall = true;
     }
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "cyberball")
         {            		
             Destroy(other.gameObject);
-			//prepareToTakeBall(CatchBall());
+			myBall.SetActive(true);
+			haveBall = true;
         }
         Debug.Log(gameObject.name + " was triggered by "+other.gameObject.name);
     }
