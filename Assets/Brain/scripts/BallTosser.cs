@@ -28,6 +28,7 @@ public class BallTosser : MonoBehaviour {
 	
 	public float minWaitThrow = 2.0f;
 	public float maxWaitThrow = 5.0f;
+	public float exclusionLookTime = 2.0f;
 
     // Use this for initialization
     void Start () {
@@ -77,12 +78,35 @@ public class BallTosser : MonoBehaviour {
 		
 		//Random wait before throwing the next ball
         yield return new WaitForSeconds(Random.Range(minWaitThrow, maxWaitThrow));
-        if(Random.Range(0.0f, 1.0f) <= includePlayerPercentage){
-            StartCoroutine(AnimateThrow(false));
+		
+		bool throwLeft=false;
+		
+        if(Random.Range(0.0f, 1.0f) < includePlayerPercentage){
+			// look to other player in exclusion mode:		
+			if(includePlayerPercentage < 0.01f)
+			{
+				newForth = targetLeft.position - myTransform.position;
+				lookingTarget = true;
+				//wait this exclusion look
+				yield return new WaitForSeconds(exclusionLookTime);
+			}
+			
+			throwLeft = false;			
 		}
         else{
-            StartCoroutine(AnimateThrow(true));
+			// look to other player in exclusion mode:		
+			if(includePlayerPercentage < 0.01f)
+			{
+				newForth = targetRight.position - myTransform.position;
+				lookingTarget = true;
+				//wait this exclusion look
+				yield return new WaitForSeconds(exclusionLookTime);
+			}
+			
+			throwLeft = true;
 		}
+		
+		StartCoroutine(AnimateThrow(throwLeft));
     }
 	
 	IEnumerator AnimateThrow(bool left){

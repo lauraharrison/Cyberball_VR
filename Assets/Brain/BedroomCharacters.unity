@@ -1161,6 +1161,7 @@ MonoBehaviour:
   lookingTarget: 0
   minWaitThrow: 2
   maxWaitThrow: 5
+  exclusionLookTime: 2
 --- !u!1 &66435497
 GameObject:
   m_ObjectHideFlags: 0
@@ -2703,7 +2704,7 @@ Prefab:
       objectReference: {fileID: 930194876}
     - target: {fileID: 1000012457019574, guid: 7a748481462eca645b1063432cba4d61, type: 2}
       propertyPath: m_Name
-      value: alienEyes
+      value: player
       objectReference: {fileID: 0}
     - target: {fileID: 65614020504218100, guid: 7a748481462eca645b1063432cba4d61,
         type: 2}
@@ -5769,12 +5770,12 @@ Prefab:
         type: 2}
       propertyPath: targetLeft
       value: 
-      objectReference: {fileID: 157518024}
+      objectReference: {fileID: 1303288978}
     - target: {fileID: 114504842893342670, guid: 2df34ea96c0ae934aa33300501dcc2e4,
         type: 2}
       propertyPath: targetRight
       value: 
-      objectReference: {fileID: 1303288978}
+      objectReference: {fileID: 157518024}
     - target: {fileID: 114724431501777980, guid: 2df34ea96c0ae934aa33300501dcc2e4,
         type: 2}
       propertyPath: playingLocation
@@ -17346,6 +17347,7 @@ MonoBehaviour:
   lookingTarget: 0
   minWaitThrow: 2
   maxWaitThrow: 5
+  exclusionLookTime: 2
 --- !u!28 &1616873606
 Texture2D:
   m_ObjectHideFlags: 0
