@@ -39,33 +39,34 @@ public class BallTosser : MonoBehaviour {
 		
         if(!isplayer){
 			myAnim = GetComponent<Animator>();
-            myBall.SetActive(false);
 		}
         else{
 			myAnim = GameObject.Find(gameObject.name+"/meshPlayer").GetComponent<Animator>();
-            StartCoroutine(GetReady2Play());
+            //StartCoroutine(GetReady2Play());
 		}
+		
+		myBall.SetActive(haveBall);
     }
 	
 	// Update is called once per frame
 	void Update () {
         if (haveBall)
         {
-            if (isplayer)
+            if(isplayer)
             {
-                if (Input.GetKeyDown(KeyCode.L))
+                if(Input.GetKeyDown(KeyCode.L))
                 {
 					myBall.SetActive(false);
                     StartCoroutine(AnimateThrow(false));
                 }
-                if (Input.GetKeyDown(KeyCode.J))
+                if(Input.GetKeyDown(KeyCode.J))
                 {
 					myBall.SetActive(false);
                     StartCoroutine(AnimateThrow(true));
                 }
             }
-            else {				
-                StartCoroutine(DecideAndThrow());
+            else{				
+                //StartCoroutine(DecideAndThrow());
             }
         }
 		if(lookingTarget && !isplayer){
@@ -73,6 +74,19 @@ public class BallTosser : MonoBehaviour {
 		}
 	}
 
+	public IEnumerator ThrowBall(Transform gazeTarget, bool throwLeft, bool gaze, float gazeTime) {
+        haveBall = false;
+		
+		if(gaze){
+			
+			newForth = gazeTarget.position - myTransform.position;
+			lookingTarget = true;
+			yield return new WaitForSeconds(gazeTime);
+		}
+		
+		StartCoroutine(AnimateThrow(throwLeft));
+	}
+	
     IEnumerator DecideAndThrow() {
         haveBall = false;
 		

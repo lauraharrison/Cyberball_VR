@@ -96,6 +96,8 @@ ModelImporter:
     100176: rightLegIK
     100178: Shoes
     100180: Tops
+    100182: leftHandCtrl
+    100184: rightHandCtrl
     400000: Body
     400002: body
     400004: Bottoms
@@ -187,6 +189,8 @@ ModelImporter:
     400176: rightLegIK
     400178: Shoes
     400180: Tops
+    400182: leftHandCtrl
+    400184: rightHandCtrl
     4300000: Eyes
     4300002: Eyelashes
     4300004: Body
