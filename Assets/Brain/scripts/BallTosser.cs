@@ -30,6 +30,10 @@ public class BallTosser : MonoBehaviour {
 	public float maxWaitThrow = 5.0f;
 	public float exclusionLookTime = 2.0f;
 
+	public Transform headTransform;
+	public Transform lookTo;
+	public float lookSpeed = 5.0f;
+	
     // Use this for initialization
     void Start () {
 		myTransform = transform;
@@ -71,6 +75,15 @@ public class BallTosser : MonoBehaviour {
         }
 		if(lookingTarget && !isplayer){
 			myTransform.forward = Vector3.Lerp (myTransform.forward, newForth, smoothRot*Time.deltaTime);
+		}
+	}
+	
+	void LateUpdate(){
+		if(lookingTarget && !isplayer && lookTo){
+			Quaternion targetRotation = Quaternion.LookRotation(lookTo.position - headTransform.position);
+			// Smoothly rotate towards the target point.
+			headTransform.rotation = Quaternion.Slerp(headTransform.rotation, targetRotation, lookSpeed * Time.deltaTime);
+			//headTransform.LookAt(lookTo);
 		}
 	}
 
@@ -161,6 +174,14 @@ public class BallTosser : MonoBehaviour {
 				
         Transform ballTrans = ball.transform;
         ballTrans.LookAt(target);
+		
+		if (left)
+        {
+			rightTosser.lookTo = ballTrans;
+		}
+		else{
+			leftTosser.lookTo = ballTrans;
+		}
 
         //calculating trajectory
         float gravityAcel = Physics.gravity.y;
