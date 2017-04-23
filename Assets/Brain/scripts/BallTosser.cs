@@ -33,9 +33,26 @@ public class BallTosser : MonoBehaviour {
 	public Transform headTransform;
 	public Transform lookTo;
 	public float lookSpeed = 5.0f;
-	
+
+    SaveToCSV saveFile;
     // Use this for initialization
     void Start () {
+       
+        GameObject saveFileGameObject = GameObject.FindGameObjectWithTag("SaveFile");
+        if(saveFileGameObject == null)
+        {
+            Debug.LogError("GameObject with SaveToCSV scripts needs to be tagged with SaveFile tag");            
+        }
+        else
+        {
+            saveFile = saveFileGameObject.GetComponent<SaveToCSV>();
+            if (saveFile == null)
+            {
+                Debug.LogError("Assign SaveToCSV script to SaveFile GameObject");
+            }
+        }
+        
+
 		myTransform = transform;
 		
 		leftTosser = targetLeft.GetComponent<BallTosser>();
@@ -60,12 +77,27 @@ public class BallTosser : MonoBehaviour {
             {
                 if(Input.GetKeyDown(KeyCode.L))
                 {
-					myBall.SetActive(false);
+                    if(saveFile != null)
+                    {
+                        bool[] events = new bool[saveFile.numEvents];
+                        //Player throws ball to Remy
+                        events[0] = true;
+                        saveFile.WriteToFile(events);
+                    }
+                   
+                    myBall.SetActive(false);
                     StartCoroutine(AnimateThrow(false));
                 }
                 if(Input.GetKeyDown(KeyCode.J))
                 {
-					myBall.SetActive(false);
+                    if (saveFile != null)
+                    {
+                        bool[] events = new bool[saveFile.numEvents];
+                        //Player throws ball to Stefani
+                        events[1] = true;
+                        saveFile.WriteToFile(events);
+                    }
+                    myBall.SetActive(false);
                     StartCoroutine(AnimateThrow(true));
                 }
             }

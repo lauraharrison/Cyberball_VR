@@ -3667,6 +3667,62 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.8936656, y: 0.7984814, z: 0.816989}
   m_Center: {x: 0, y: 0.3992407, z: -0.0013848245}
+--- !u!1001 &346115089
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4461182295955528, guid: 371a031e5b758e54f9a73eaf5314efcb, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -47.44598
+      objectReference: {fileID: 0}
+    - target: {fileID: 4461182295955528, guid: 371a031e5b758e54f9a73eaf5314efcb, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 16.009289
+      objectReference: {fileID: 0}
+    - target: {fileID: 4461182295955528, guid: 371a031e5b758e54f9a73eaf5314efcb, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -45.264427
+      objectReference: {fileID: 0}
+    - target: {fileID: 4461182295955528, guid: 371a031e5b758e54f9a73eaf5314efcb, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4461182295955528, guid: 371a031e5b758e54f9a73eaf5314efcb, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4461182295955528, guid: 371a031e5b758e54f9a73eaf5314efcb, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4461182295955528, guid: 371a031e5b758e54f9a73eaf5314efcb, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4461182295955528, guid: 371a031e5b758e54f9a73eaf5314efcb, type: 2}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 114165348747144396, guid: 371a031e5b758e54f9a73eaf5314efcb,
+        type: 2}
+      propertyPath: subjectID
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114165348747144396, guid: 371a031e5b758e54f9a73eaf5314efcb,
+        type: 2}
+      propertyPath: runNumber
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1233920718350414, guid: 371a031e5b758e54f9a73eaf5314efcb, type: 2}
+      propertyPath: m_TagString
+      value: SaveFile
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 371a031e5b758e54f9a73eaf5314efcb, type: 2}
+  m_IsPrefabParent: 0
 --- !u!28 &349783636
 Texture2D:
   m_ObjectHideFlags: 0
@@ -20661,7 +20717,7 @@ MonoBehaviour:
     gazeTime: 3
   - throwToPlayer: 0
     waitTime: 0
-    gazeToOther: 1
+    gazeToOther: 0
     gazeTime: 3
   - throwToPlayer: 1
     waitTime: 0.5

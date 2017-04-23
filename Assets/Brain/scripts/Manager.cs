@@ -20,14 +20,28 @@ public class Manager : MonoBehaviour {
 	
 	BallTosser leftTosser;
 	BallTosser rightTosser;
+    SaveToCSV saveFile;
 
-	
-	void Awake() {
+    void Awake() {
 		leftTosser = leftPlayer.GetComponent<BallTosser>();
 		rightTosser = rightPlayer.GetComponent<BallTosser>();
 		playerTransform = transform;
 		freeToThrow=true;
-	}
+
+        GameObject saveFileGameObject = GameObject.FindGameObjectWithTag("SaveFile");
+        if (saveFileGameObject == null)
+        {
+            Debug.LogError("GameObject with SaveToCSV scripts needs to be tagged with SaveFile tag");
+        }
+        else
+        {
+            saveFile = saveFileGameObject.GetComponent<SaveToCSV>();
+            if (saveFile == null)
+            {
+                Debug.LogError("Assign SaveToCSV script to SaveFile GameObject");
+            }
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -42,22 +56,49 @@ public class Manager : MonoBehaviour {
 		
 		yield return new WaitForSeconds(throwSequence[throwIndex].waitTime);
 		Transform throwTarget;
-		
-		if(leftTosser.haveBall){
-			if(throwSequence[throwIndex].throwToPlayer)
-				throwTarget = rightPlayer;
-			else
-				throwTarget = playerTransform;
-			
-			StartCoroutine(leftTosser.ThrowBall(throwTarget, !throwSequence[throwIndex].throwToPlayer, throwSequence[throwIndex].gazeToOther, throwSequence[throwIndex].gazeTime));
+        bool[] events = new bool[saveFile.numEvents];
+        if (leftTosser.haveBall){           
+            if (throwSequence[throwIndex].throwToPlayer)
+            {
+                //Stefani throws to player
+                events[2] = true;                
+                throwTarget = rightPlayer;
+            }
+
+            else
+            {
+                //Stefani throws to Remy
+                events[3] = true;
+                throwTarget = playerTransform;
+            }
+            if (saveFile != null)
+            {
+                events[6] = throwSequence[throwIndex].gazeToOther;
+                saveFile.WriteToFile(events);
+            }
+            StartCoroutine(leftTosser.ThrowBall(throwTarget, !throwSequence[throwIndex].throwToPlayer, throwSequence[throwIndex].gazeToOther, throwSequence[throwIndex].gazeTime));
 		}
 		else{
-			if(throwSequence[throwIndex].throwToPlayer)
-				throwTarget = leftPlayer;
+            if (throwSequence[throwIndex].throwToPlayer)
+            {
+                //Stefani throws to player
+                events[4] = true;
+                throwTarget = leftPlayer;
+            }
+				
 			else
-				throwTarget = playerTransform;
-			
-			StartCoroutine(rightTosser.ThrowBall(throwTarget, !throwSequence[throwIndex].throwToPlayer, throwSequence[throwIndex].gazeToOther, throwSequence[throwIndex].gazeTime));
+            {
+                //Stefani throws to Remy
+                events[5] = true;
+                throwTarget = playerTransform;
+            }
+
+            if (saveFile != null)
+            {
+                events[7] = throwSequence[throwIndex].gazeToOther;
+                saveFile.WriteToFile(events);
+            }
+            StartCoroutine(rightTosser.ThrowBall(throwTarget, !throwSequence[throwIndex].throwToPlayer, throwSequence[throwIndex].gazeToOther, throwSequence[throwIndex].gazeTime));
 		}
 		throwIndex += 1;
 		freeToThrow=true;		
