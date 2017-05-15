@@ -4,12 +4,13 @@ using UnityEngine;
 using System;
 using System.IO;
 using System.Text;
+
 public class SaveToCSV : MonoBehaviour {
     public string subjectID;
     public string runNumber;
-    public int numEvents;
-    public GameObject player;
-    public GameObject camera;
+    
+    //public GameObject player;
+    public Transform headTransform;
     string[] columnHeaders;
     float timer;
     string path = @"LogFiles/";
@@ -20,35 +21,26 @@ public class SaveToCSV : MonoBehaviour {
         {
             Debug.LogError("Assign Subject ID and Run Number in the CSVLogFile GameObject");
         }
-        if(player == null)
+        //if(player == null)
+        //{
+        //    player = GameObject.FindWithTag("Player");
+        //    if(player == null)
+        //    {
+        //        Debug.LogError("Assign Player Gameobject in the CSVLogFile GameObject");
+        //    }
+        //}
+        if(headTransform == null)
         {
-            player = GameObject.FindWithTag("Player");
-            if(player == null)
-            {
-                Debug.LogError("Assign Player Gameobject in the CSVLogFile GameObject");
-            }
-        }
-        if(camera == null)
-        {
-            Debug.LogError("Assign Camera Gameobject in the CSVLogFile GameObject");
+            Debug.LogError("Assign headTransform in the CSVLogFile GameObject");
         }
         path += "SubjectID_" + subjectID + "_" + "RunNumber_" + runNumber +".csv";
         columnHeaders = new string[] {
            "Time (seconds)",
-           "Player throws ball to Remy",
-           "Player throws ball to Stefani",
-           "Stefani throws ball to Player",
-           "Stefani throws ball to Remy",
-           "Remy throws ball to Player",
-           "Remy throws ball to Stefani",
-           "Stefani glances at Remy",
-           "Remy glances at Stefani",
-           "Gaze Time",
-           "Gaze Direction",
-           "\"Player Position (x,y)\""
-        };
-        //not including player position and gaze direction since those are appended at the end
-        numEvents = columnHeaders.Length-3;
+           "Throw",
+           "Gaze Time to other player",
+           "Player Head Direction",
+           //"\"Player Position (x,y)\""
+        };        
 
         // Currently overrides any existing file
        // if (!File.Exists(path))
@@ -88,38 +80,25 @@ public class SaveToCSV : MonoBehaviour {
 
     }
 
-    public void WriteToFile(bool[] eventArr, float gazeTime = 0)
+    public void WriteToFile(string ballToss, float gazeTime = 0)
     {
         string row = timer.ToString();
 
-        for (int i = 0; i < eventArr.Length; i++)
-        {
-            row += ",";
-            //gaze time
-            if (i == eventArr.Length-1)
-            {
-                if (eventArr[i])
-                {
-                    row += gazeTime.ToString();
-                }
-                else
-                {
-                    row += "N/A";
-                }
-            }
-            //True,False for rest of events
-            else
-            {
-                row += eventArr[i].ToString();
-            }
-
-        }
+		row += ", " + ballToss;
+		
+		if(gazeTime > 0){
+			row += ", gazeTime: "+gazeTime.ToString();
+		}
+		else{
+			row += ", no gaze";
+		}		
+		
         //gaze direction
         row += ",";
-        row += "\"("+camera.transform.forward.x+"," + camera.transform.forward.y+ "," + camera.transform.forward.z + ")\"";
+        row += "\"("+headTransform.forward.x+"," + headTransform.forward.y+ "," + headTransform.forward.z + ")\"";
         //player position(x,y)
-        row += ",";
-        row += "\"(" + player.transform.position.x + "," + player.transform.position.y + ")\"";
+        //row += ",";
+        //row += "\"(" + player.transform.position.x + "," + player.transform.position.y + ")\"";
         row += Environment.NewLine;
         Debug.Log("Writing: " + row);
         File.AppendAllText(path, row);

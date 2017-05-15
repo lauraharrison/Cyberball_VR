@@ -12,6 +12,7 @@ public class friendControl : MonoBehaviour {
     Animator myAnim;
     BallTosser myTosser;
     bool ready;
+	bool move2Location=false;
 
 	// Use this for initialization
 	void Start () {
@@ -19,22 +20,22 @@ public class friendControl : MonoBehaviour {
         navAgent = GetComponent<NavMeshAgent>();
         myAnim = GetComponent<Animator>();
         myTosser = GetComponent<BallTosser>();
-
-        navAgent.SetDestination(playingLocation.position);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (Vector3.Distance(myTransform.position, navAgent.destination) > closeDist)
-        {
-            myAnim.SetFloat("speed", navAgent.velocity.magnitude / navAgent.speed);
-            //Debug.Log("animation parameter: " + (navAgent.velocity.magnitude / navAgent.speed).ToString());
-        }
-        else {
-            myAnim.SetFloat("speed", 0f);
-            if(!ready)
-                StartCoroutine(GetReady2Play());
-        }
+		if(move2Location){
+			if (Vector3.Distance(myTransform.position, navAgent.destination) > closeDist)
+			{
+				myAnim.SetFloat("speed", navAgent.velocity.magnitude / navAgent.speed);
+				//Debug.Log("animation parameter: " + (navAgent.velocity.magnitude / navAgent.speed).ToString());
+			}
+			else {
+				myAnim.SetFloat("speed", 0f);
+				if(!ready)
+					StartCoroutine(GetReady2Play());
+			}
+		}
 	}
 
     IEnumerator GetReady2Play()
@@ -45,4 +46,9 @@ public class friendControl : MonoBehaviour {
         yield return new WaitForSeconds(2f);
         myAnim.SetBool("bored", false);
     }
+	
+	public void Move2Loc(){
+		navAgent.SetDestination(playingLocation.position);
+		move2Location = true;
+	}
 }

@@ -20,6 +20,9 @@ public class BallTosser : MonoBehaviour {
     public float includePlayerPercentage = 0.5f;
 	
 	public float throwTime = 0.8f;
+	public float catchTime = 0.8f;
+	public float prepareTime = 0.8f;
+	public float prepareTimePlayer = 0.8f;
 	public float smoothRot = 0.5f;
  	Animator myAnim;
 	Transform myTransform;
@@ -33,12 +36,21 @@ public class BallTosser : MonoBehaviour {
 	public Transform headTransform;
 	public Transform lookTo;
 	public float lookSpeed = 5.0f;
+	public float offsetY = 1f;
+	public float idleFloat;
+	public float idleFloatSpeed = 10f;
+	bool paused;
 
-    SaveToCSV saveFile;
+	SaveToCSV saveFile;
+    
     // Use this for initialization
     void Start () {
-       
-        GameObject saveFileGameObject = GameObject.FindGameObjectWithTag("SaveFile");
+		myTransform = transform;
+		
+		leftTosser = targetLeft.GetComponent<BallTosser>();
+		rightTosser = targetRight.GetComponent<BallTosser>();
+		
+		GameObject saveFileGameObject = GameObject.FindGameObjectWithTag("SaveFile");
         if(saveFileGameObject == null)
         {
             Debug.LogError("GameObject with SaveToCSV scripts needs to be tagged with SaveFile tag");            
@@ -51,12 +63,6 @@ public class BallTosser : MonoBehaviour {
                 Debug.LogError("Assign SaveToCSV script to SaveFile GameObject");
             }
         }
-        
-
-		myTransform = transform;
-		
-		leftTosser = targetLeft.GetComponent<BallTosser>();
-		rightTosser = targetRight.GetComponent<BallTosser>();
 		
         if(!isplayer){
 			myAnim = GetComponent<Animator>();
@@ -71,42 +77,54 @@ public class BallTosser : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if(isplayer)
+		{
+			if(Input.GetKeyDown("escape")){
+				if(paused){
+					paused=false;
+					Time.timeScale = 1f;
+				}
+				else{
+					paused=true;
+					Time.timeScale = 0f;
+				}
+			}
+		}
+		
         if (haveBall)
         {
             if(isplayer)
             {
                 if(Input.GetKeyDown(KeyCode.L))
                 {
-                    if(saveFile != null)
-                    {
-                        bool[] events = new bool[saveFile.numEvents];
-                        //Player throws ball to Remy
-                        events[0] = true;
-                        saveFile.WriteToFile(events);
-                    }
-                   
-                    myBall.SetActive(false);
+					myBall.SetActive(false);
+					haveBall = false;
                     StartCoroutine(AnimateThrow(false));
+					saveFile.WriteToFile("Player to Remy");
                 }
                 if(Input.GetKeyDown(KeyCode.J))
                 {
-                    if (saveFile != null)
-                    {
-                        bool[] events = new bool[saveFile.numEvents];
-                        //Player throws ball to Stefani
-                        events[1] = true;
-                        saveFile.WriteToFile(events);
-                    }
-                    myBall.SetActive(false);
+					myBall.SetActive(false);
+					haveBall = false;
                     StartCoroutine(AnimateThrow(true));
+					saveFile.WriteToFile("Player to Stefani");
                 }
             }
-            else{				
-                //StartCoroutine(DecideAndThrow());
-            }
+            //else{				
+            //    StartCoroutine(DecideAndThrow());
+            //}
         }
-		if(lookingTarget && !isplayer){
-			myTransform.forward = Vector3.Lerp (myTransform.forward, newForth, smoothRot*Time.deltaTime);
+		//if(lookingTarget && !isplayer){
+		//	//myTransform.forward = Vector3.Lerp (myTransform.forward, newForth, smoothRot*Time.deltaTime);			
+		//}
+		if(!isplayer){
+			float idlecurr = myAnim.GetFloat("idle");
+			if(idlecurr != idleFloat){
+				idlecurr += Mathf.Sign(idleFloat)*idleFloatSpeed*Time.deltaTime;
+				if(Mathf.Abs(idlecurr) > 1f)
+					idlecurr = 1f*Mathf.Sign(idleFloat);
+				myAnim.SetFloat("idle",idlecurr);
+			}			
 		}
 	}
 	
@@ -114,7 +132,7 @@ public class BallTosser : MonoBehaviour {
 		if(lookingTarget && !isplayer && lookTo){
 			Quaternion targetRotation = Quaternion.LookRotation(lookTo.position - headTransform.position);
 			// Smoothly rotate towards the target point.
-			headTransform.rotation = Quaternion.Slerp(headTransform.rotation, targetRotation, lookSpeed * Time.deltaTime);
+			//headTransform.rotation = Quaternion.Slerp(headTransform.rotation, targetRotation, lookSpeed * Time.deltaTime);
 			//headTransform.LookAt(lookTo);
 		}
 	}
@@ -124,9 +142,15 @@ public class BallTosser : MonoBehaviour {
 		
 		if(gaze){
 			
-			newForth = gazeTarget.position - myTransform.position;
-			lookingTarget = true;
+			//newForth = gazeTarget.position - myTransform.position;
+			//lookingTarget = true;
+			if(throwLeft)
+				myAnim.SetInteger("gazeValue",1);
+			else
+				myAnim.SetInteger("gazeValue",-1);
+
 			yield return new WaitForSeconds(gazeTime);
+			myAnim.SetInteger("gazeValue",0);
 		}
 		
 		StartCoroutine(AnimateThrow(throwLeft));
@@ -171,17 +195,25 @@ public class BallTosser : MonoBehaviour {
 	IEnumerator AnimateThrow(bool left){
 		if (left)
         {
-            newForth = targetLeft.position - myTransform.position;			
+            newForth = targetLeft.position - myTransform.position;
+			myAnim.SetInteger("throwValue",-1);
+			rightTosser.idleFloat = 1.0f;
 		}
 		else{
 			newForth = targetRight.position - myTransform.position;
+			myAnim.SetInteger("throwValue",1);
+			leftTosser.idleFloat = -1.0f;
 		}
-		lookingTarget = true;
+		lookingTarget = true;		
 		
-		myAnim.SetBool("throw",true);
 		yield return new WaitForSeconds(throwTime);
 		ThrowBall(left);
-		myAnim.SetBool("throw",false);
+		myAnim.SetInteger("throwValue",0);
+		
+		if(left)
+			myAnim.SetFloat("idle",-1f);
+		else
+			myAnim.SetFloat("idle",1f);
 	}
     void ThrowBall(bool left) {
         Vector3 origin;
@@ -217,11 +249,11 @@ public class BallTosser : MonoBehaviour {
 
         //calculating trajectory
         float gravityAcel = Physics.gravity.y;
-        tossSpeedy = (-1) * gravityAcel * (Vector3.Distance(target.position,origin)) / (2 * tossSpeedx);
+        tossSpeedy = (-1*(1-offsetY)) * gravityAcel * (Vector3.Distance(target.position,origin)) / (2 * tossSpeedx);
         ball.GetComponent<Rigidbody>().velocity = ballTrans.forward * tossSpeedx + ballTrans.up * tossSpeedy;
         
-		float impactTime = Vector3.Distance(target.position,origin)/tossSpeedx;
-		target.GetComponent<BallTosser>().prepareToTakeBall(impactTime);
+		//float impactTime = Vector3.Distance(target.position,origin)/tossSpeedx;
+		target.GetComponent<BallTosser>().prepareToTakeBall(isplayer,left);
 		//Debug.DrawRay(ballTrans.position, target.position - ballTrans.position, new Color (1f, 1f, 0f));
 		//Time.timeScale = 0;
 		
@@ -243,15 +275,25 @@ public class BallTosser : MonoBehaviour {
         haveBall = true;
         myBall.SetActive(true);        
     }
-	void prepareToTakeBall(float impactIn){
+	void prepareToTakeBall(bool fromPlayer, bool left){
 		lookingTarget = false;
-		StartCoroutine(CatchBall(impactIn));
+		StartCoroutine(CatchBall(fromPlayer, left));
 	}
-	IEnumerator CatchBall(float impactIn) {
-		yield return new WaitForSeconds(impactIn/2);
-		myAnim.SetBool("catch",true);
-        yield return new WaitForSeconds(0.8f);
-		myAnim.SetBool("catch",false);
+	IEnumerator CatchBall(bool fromPlayer, bool left) {
+		//yield return new WaitForSeconds(impactIn/2);
+		if(fromPlayer)
+			yield return new WaitForSeconds(prepareTimePlayer);
+		else
+			yield return new WaitForSeconds(prepareTime);
+		
+		if(left)
+			myAnim.SetInteger("catchValue",1);
+		else
+			myAnim.SetInteger("catchValue",-1);
+		
+        yield return new WaitForSeconds(catchTime);
+		myAnim.SetInteger("catchValue",0);
+		myAnim.SetFloat("idle",0f);
     }
     void OnTriggerEnter(Collider other)
     {
