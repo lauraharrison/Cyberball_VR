@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 [System.Serializable]
 public class throwDetail{
@@ -11,7 +12,7 @@ public class throwDetail{
 }
 
 public class Manager : MonoBehaviour {
-	public throwDetail[] throwSequence;
+	public List<throwDetail> throwSequence;
 	public GameObject skyDome;
 
 	int throwIndex;
@@ -26,6 +27,8 @@ public class Manager : MonoBehaviour {
 	AudioSource rightAudio;
 
 	SaveToCSV saveFile;
+	string sequenceFilePath = @"LogFiles/throwSequence.csv";
+	public bool readCSVsequence;
 	
 	Color horizonColor;
 	Color skyColor;
@@ -58,6 +61,44 @@ public class Manager : MonoBehaviour {
 				Debug.LogError ("Assign SaveToCSV script to SaveFile GameObject");
 			}
 		}
+
+		//read throwSequenceFile
+		if(readCSVsequence){
+			throwSequence.Clear();
+			FileStream fileStream = File.Open(sequenceFilePath, FileMode.Open);
+			StreamReader sr = new StreamReader(fileStream);
+			bool readingData = false;
+			while (!sr.EndOfStream){
+				string newLine = sr.ReadLine();
+				Debug.Log(newLine);
+				if (readingData) {
+					string[] elements = newLine.Split (';');
+					throwDetail newThrowDetail = new throwDetail ();
+					for (int i = 0; i < elements.Length; i++) {
+						switch (i) {
+						case 0:
+							newThrowDetail.throwToPlayer = bool.Parse (elements [i].Trim ());
+							break;
+						case 1:
+							newThrowDetail.waitTime = float.Parse (elements [i].Trim ());
+							break;
+						case 2:
+							float gazeSpan = float.Parse (elements [i].Trim ());
+							newThrowDetail.gazeTime = gazeSpan;
+							if (gazeSpan > 0)
+								newThrowDetail.gazeToOther = true;
+							break;
+						}
+						//Debug.Log ("element: " + elements [i].Trim ());
+					}
+					throwSequence.Add (newThrowDetail);
+
+				}
+				readingData = true;
+			}
+			fileStream.Close ();
+			Debug.Log("End of file reached. ThrowSequence populated from csv file.");
+		}
 	}
 
 	void Start() {
@@ -65,14 +106,14 @@ public class Manager : MonoBehaviour {
 		horizonColor = skyDome.GetComponent<Renderer> ().material.GetColor ("_HorizonColor");
 
 		nightColor = new Color(11f/255,89f/255,159f/255);
-		stepR = (nightColor.r - skyColor.r) / throwSequence.Length;
-		stepG = (nightColor.g - skyColor.g) / throwSequence.Length;
-		stepB = (nightColor.b - skyColor.b) / throwSequence.Length;
+		stepR = (nightColor.r - skyColor.r) / throwSequence.Count;
+		stepG = (nightColor.g - skyColor.g) / throwSequence.Count;
+		stepB = (nightColor.b - skyColor.b) / throwSequence.Count;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if( (leftTosser.haveBall || rightTosser.haveBall) && throwIndex < throwSequence.Length && freeToThrow)
+		if( (leftTosser.haveBall || rightTosser.haveBall) && throwIndex < throwSequence.Count && freeToThrow)
 		{
 			StartCoroutine(WaitNThrowBall());
 		}
@@ -97,29 +138,29 @@ public class Manager : MonoBehaviour {
 	}
 	
 	void UserThrow(bool toPlayer, bool gazeToOther){
-		Transform throwTarget;
+		Transform gazeTarget;
 		
 		if(leftTosser.haveBall){
 			if(toPlayer){
-				throwTarget = rightPlayer;
+				gazeTarget = rightPlayer;
 			}
 			else{
-				throwTarget = playerTransform;
+				gazeTarget = playerTransform;
 				rightTosser.idleFloat = -1.0f;
 			}
 			
-			StartCoroutine(leftTosser.ThrowBall(throwTarget, !toPlayer, gazeToOther, 2.0f));
+			StartCoroutine(leftTosser.ThrowBall(gazeTarget, !toPlayer, gazeToOther, 2.0f));
 		}
 		else{
 			if(toPlayer){
-				throwTarget = leftPlayer;
+				gazeTarget = leftPlayer;
 			}
 			else{
-				throwTarget = playerTransform;
+				gazeTarget = playerTransform;
 				leftTosser.idleFloat = 1.0f;
 			}
 			
-			StartCoroutine(rightTosser.ThrowBall(throwTarget, toPlayer, gazeToOther, 2.0f));
+			StartCoroutine(rightTosser.ThrowBall(gazeTarget, toPlayer, gazeToOther, 2.0f));
 		}
 		
 		freeToThrow = true;
@@ -153,35 +194,35 @@ public class Manager : MonoBehaviour {
 	}
 	
 	public void ThrowBall(){
-		Transform throwTarget;
+		Transform gazeTarget;
 		
 		if(leftTosser.haveBall){
 			if(throwSequence[throwIndex].throwToPlayer){
-				throwTarget = rightPlayer;
+				gazeTarget = rightPlayer;
 				StartCoroutine(CallOut(throwSequence[throwIndex].gazeTime, true));
 				saveFile.WriteToFile("Stefani to Player",throwSequence[throwIndex].gazeTime);
 			}
 			else{
-				throwTarget = playerTransform;
+				gazeTarget = playerTransform;
 				rightTosser.idleFloat = -1.0f;
 				saveFile.WriteToFile("Stefani to Remy",throwSequence[throwIndex].gazeTime);
 			}
 			
-			StartCoroutine(leftTosser.ThrowBall(throwTarget, !throwSequence[throwIndex].throwToPlayer, throwSequence[throwIndex].gazeToOther, throwSequence[throwIndex].gazeTime));
+			StartCoroutine(leftTosser.ThrowBall(gazeTarget, !throwSequence[throwIndex].throwToPlayer, throwSequence[throwIndex].gazeToOther, throwSequence[throwIndex].gazeTime));
 		}
 		else{
 			if(throwSequence[throwIndex].throwToPlayer){
-				throwTarget = leftPlayer;
+				gazeTarget = leftPlayer;
 				StartCoroutine(CallOut(throwSequence[throwIndex].gazeTime, false));
 				saveFile.WriteToFile("Remy to Player",throwSequence[throwIndex].gazeTime);
 			}
 			else{
-				throwTarget = playerTransform;
+				gazeTarget = playerTransform;
 				leftTosser.idleFloat = 1.0f;
 				saveFile.WriteToFile("Remy to Stefani",throwSequence[throwIndex].gazeTime);
 			}
 			
-			StartCoroutine(rightTosser.ThrowBall(throwTarget, throwSequence[throwIndex].throwToPlayer, throwSequence[throwIndex].gazeToOther, throwSequence[throwIndex].gazeTime));
+			StartCoroutine(rightTosser.ThrowBall(gazeTarget, throwSequence[throwIndex].throwToPlayer, throwSequence[throwIndex].gazeToOther, throwSequence[throwIndex].gazeTime));
 		}
 		throwIndex += 1;
 		freeToThrow=true;		

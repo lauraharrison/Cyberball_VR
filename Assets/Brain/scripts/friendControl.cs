@@ -41,10 +41,15 @@ public class friendControl : MonoBehaviour {
     IEnumerator GetReady2Play()
     {
         ready = true;
+		
+		myTosser.newForth = myTosser.targetLeft.position - myTransform.position + (myTosser.targetRight.position - myTosser.targetLeft.position)/2f;
+		myTosser.lookingTarget = true;
+			
         yield return new WaitForSeconds(Random.Range(0.0f,1.0f));
         myAnim.SetBool("bored",true);
         yield return new WaitForSeconds(2f);
         myAnim.SetBool("bored", false);
+		myTosser.lookingTarget = false;
     }
 	
 	public void Move2Loc(){

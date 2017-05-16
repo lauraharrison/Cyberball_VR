@@ -27,6 +27,11 @@ public class PreGameControl : MonoBehaviour {
 	public AudioClip greeting1;
 	public AudioClip greeting2;
 	bool playersActive;
+	
+	public Transform CameraTransform;
+	public float bobAmp = 0.01f;
+	public float bobFreq = 10f;
+	bool walking = true;
 
 	Animator leftAnim;
 
@@ -50,7 +55,11 @@ public class PreGameControl : MonoBehaviour {
 	void Update () {
 		if(inPreGame){
 			myTransform.Rotate(0f,CrossPlatformInputManager.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime, 0f);
-			
+			if(walking){
+				Vector3 cameraPos = CameraTransform.position;
+				cameraPos.y += Mathf.Sin(bobFreq*Time.time)*bobAmp;
+				CameraTransform.position = cameraPos;
+			}
 			//if(Input.GetKeyDown("space"))
 			//	ActivatePlayers();
 		
@@ -64,6 +73,8 @@ public class PreGameControl : MonoBehaviour {
 							if (navPointIndex == 3)
 								StartCoroutine (GreetPlayer());
 							navPointIndex++;
+							if(navPointIndex == playerNavPoints.Length)
+								walking = false;
 						}
 						else{
 							if(!playersActive)

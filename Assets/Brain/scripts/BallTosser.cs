@@ -114,9 +114,9 @@ public class BallTosser : MonoBehaviour {
             //    StartCoroutine(DecideAndThrow());
             //}
         }
-		//if(lookingTarget && !isplayer){
-		//	//myTransform.forward = Vector3.Lerp (myTransform.forward, newForth, smoothRot*Time.deltaTime);			
-		//}
+		if(lookingTarget && !isplayer){
+			myTransform.forward = Vector3.Lerp (myTransform.forward, newForth, smoothRot*Time.deltaTime);			
+		}
 		if(!isplayer){
 			float idlecurr = myAnim.GetFloat("idle");
 			if(idlecurr != idleFloat){
@@ -169,7 +169,7 @@ public class BallTosser : MonoBehaviour {
 			if(includePlayerPercentage < 0.01f)
 			{
 				newForth = targetLeft.position - myTransform.position;
-				lookingTarget = true;
+				//lookingTarget = true;
 				//wait this exclusion look
 				yield return new WaitForSeconds(exclusionLookTime);
 			}
@@ -181,7 +181,7 @@ public class BallTosser : MonoBehaviour {
 			if(includePlayerPercentage < 0.01f)
 			{
 				newForth = targetRight.position - myTransform.position;
-				lookingTarget = true;
+				//lookingTarget = true;
 				//wait this exclusion look
 				yield return new WaitForSeconds(exclusionLookTime);
 			}
@@ -204,7 +204,7 @@ public class BallTosser : MonoBehaviour {
 			myAnim.SetInteger("throwValue",1);
 			leftTosser.idleFloat = -1.0f;
 		}
-		lookingTarget = true;		
+		//lookingTarget = true;		
 		
 		yield return new WaitForSeconds(throwTime);
 		ThrowBall(left);
@@ -223,15 +223,15 @@ public class BallTosser : MonoBehaviour {
             origin = leftHandLoc.position;
             target = targetLeft;
 			//make right player look to left player
-			rightTosser.newForth = targetLeft.position - targetRight.position;
-			rightTosser.lookingTarget = true;
+			//rightTosser.newForth = targetLeft.position - targetRight.position;
+			//rightTosser.lookingTarget = true;
         }
         else
         {
             origin = rightHandLoc.position;
             target = targetRight;
-			leftTosser.newForth = targetRight.position - targetLeft.position;
-			leftTosser.lookingTarget = true;
+			//leftTosser.newForth = targetRight.position - targetLeft.position;
+			//leftTosser.lookingTarget = true;
         }
 
         GameObject ball = (GameObject)GameObject.Instantiate(ballPrefab, origin, Quaternion.identity);
