@@ -32,7 +32,14 @@ public class Manager : MonoBehaviour {
 	
 	Color horizonColor;
 	Color skyColor;
+
 	Color nightColor;
+
+	Color currentSkyColor;
+	Color currentHorizonColor;
+	public float nightFallSpeed = 10f;
+	public bool doNightFall = false;
+
 	float stepR;
 	float stepG;
 	float stepB;
@@ -104,7 +111,10 @@ public class Manager : MonoBehaviour {
 	void Start() {
 		skyColor = skyDome.GetComponent<Renderer> ().material.GetColor ("_SkyColor");
 		horizonColor = skyDome.GetComponent<Renderer> ().material.GetColor ("_HorizonColor");
+		currentSkyColor = skyColor;
+		currentHorizonColor = horizonColor;
 
+		//decrease this number so night is not so dark
 		nightColor = new Color(11f/255,89f/255,159f/255);
 		stepR = (nightColor.r - skyColor.r) / throwSequence.Count;
 		stepG = (nightColor.g - skyColor.g) / throwSequence.Count;
@@ -134,6 +144,19 @@ public class Manager : MonoBehaviour {
 						UserThrow(false,false);
 				}
 			}
+		}
+
+		if(doNightFall){
+			currentSkyColor.r = Mathf.Lerp(currentSkyColor.r, skyColor.r, nightFallSpeed*Time.deltaTime);
+			currentSkyColor.g = Mathf.Lerp(currentSkyColor.g, skyColor.g, nightFallSpeed*Time.deltaTime);
+			currentSkyColor.b = Mathf.Lerp(currentSkyColor.b, skyColor.b, nightFallSpeed*Time.deltaTime);
+
+			currentHorizonColor.r = Mathf.Lerp(currentHorizonColor.r, horizonColor.r, nightFallSpeed*Time.deltaTime);
+			currentHorizonColor.g = Mathf.Lerp(currentHorizonColor.g, horizonColor.g, nightFallSpeed*Time.deltaTime);
+			currentHorizonColor.b = Mathf.Lerp(currentHorizonColor.b, horizonColor.b, nightFallSpeed*Time.deltaTime);
+				
+			skyDome.GetComponent<Renderer>().material.SetColor ("_SkyColor", currentSkyColor);
+			skyDome.GetComponent<Renderer>().material.SetColor ("_HorizonColor", currentHorizonColor);
 		}
 	}
 	
@@ -175,8 +198,6 @@ public class Manager : MonoBehaviour {
 		horizonColor.g += stepG;
 		horizonColor.b += stepB;
 
-		skyDome.GetComponent<Renderer>().material.SetColor ("_SkyColor", skyColor);
-		skyDome.GetComponent<Renderer>().material.SetColor ("_HorizonColor", horizonColor);
 		Debug.Log("sky was changed");
 	}
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityStandardAssets.CrossPlatformInput;
 
 public class PreGameControl : MonoBehaviour {
@@ -32,6 +33,14 @@ public class PreGameControl : MonoBehaviour {
 	public float bobAmp = 0.01f;
 	public float bobFreq = 10f;
 	bool walking = true;
+	
+	Text msgToStartUI;
+	Text msgToLookUI;
+	Text msgToLookShadUI;
+	int lookLearned;
+	public int lookLearnTreshold = 100;
+	public float msgFadeTime = 0.5f;
+	
 
 	Animator leftAnim;
 
@@ -48,6 +57,14 @@ public class PreGameControl : MonoBehaviour {
 		rightFriend = rightPlayer.GetComponent<friendControl>();
 		rightPlayerSound = rightPlayer.GetComponent<AudioSource>();
 		
+		msgToStartUI = GameObject.Find("GUI/msgToStart").GetComponent<Text>();
+		msgToStartUI.gameObject.SetActive(false);
+		
+		msgToLookUI = GameObject.Find("GUI/msgToLook").GetComponent<Text>();
+		msgToLookUI.enabled = true;
+		msgToLookShadUI = GameObject.Find("GUI/msgToLookShadow").GetComponent<Text>();
+		msgToLookShadUI.enabled = true;
+		
 		StartCoroutine(Startup());
 	}
 	
@@ -60,9 +77,28 @@ public class PreGameControl : MonoBehaviour {
 				cameraPos.y += Mathf.Sin(bobFreq*Time.time)*bobAmp;
 				CameraTransform.position = cameraPos;
 			}
+			
+			if(lookLearned < lookLearnTreshold){
+				if(CrossPlatformInputManager.GetAxis("Horizontal") != 0)
+					lookLearned++;
+			}
+			else{
+				msgToLookUI.CrossFadeAlpha(0.0f,msgFadeTime,false);
+				msgToLookShadUI.CrossFadeAlpha(0.0f, msgFadeTime, false);
+			}
+			
 			//if(Input.GetKeyDown("space"))
 			//	ActivatePlayers();
 		
+			if(Input.GetKeyDown(KeyCode.S)){
+				navAgent.enabled = false;
+				myTransform.position = playerNavPoints[playerNavPoints.Length-1].position;
+				watchingToStart = true;
+				walking = false;
+				if(!playersActive)
+					StartCoroutine(ActivatePlayers());
+			}				
+			
 			//update navPoint in case it is lesser than the max number (4)
 			//otherwise, activate players
 			if (!navAgent.pathPending) {
@@ -89,6 +125,8 @@ public class PreGameControl : MonoBehaviour {
 				Debug.DrawRay(myTransform.position, myTransform.forward, Color.red, 100f);
 				//check if player is looking to both the other players
 				if(Vector3.Angle(middleTargetDir, myTransform.forward) <= lookAngle){
+					msgToStartUI.gameObject.SetActive(false);
+					GetComponent<BallTosser>().ballUI.gameObject.SetActive(true);
 					inPreGame = false;
 					Debug.Log("<color=blue>Started throwing game</color>");
 					gameManager.ThrowBall();
@@ -124,5 +162,6 @@ public class PreGameControl : MonoBehaviour {
 	public void CalculateMiddlePoint(){
 		middleTargetDir = leftPlayer.position - myTransform.position + (rightPlayer.position - leftPlayer.position)/2f;
 		watchingToStart = true;
+		msgToStartUI.gameObject.SetActive(true);
 	}
 }

@@ -32,6 +32,8 @@ public class friendControl : MonoBehaviour {
 			}
 			else {
 				myAnim.SetFloat("speed", 0f);
+				move2Location = false;
+				navAgent.enabled = false;
 				if(!ready)
 					StartCoroutine(GetReady2Play());
 			}

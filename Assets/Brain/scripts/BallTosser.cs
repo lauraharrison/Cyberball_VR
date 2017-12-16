@@ -1,9 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class BallTosser : MonoBehaviour {
     public Transform targetLeft;
     public Transform targetRight;
+	
+	public Transform lookTargetLeft;
+	public Transform lookTargetRight;
+	
 	BallTosser leftTosser;
 	BallTosser rightTosser;	
 
@@ -40,7 +45,11 @@ public class BallTosser : MonoBehaviour {
 	public float idleFloat;
 	public float idleFloatSpeed = 10f;
 	bool paused;
-
+	public RawImage ballUI;
+	public Texture ballImage;
+	public Texture ballGhostImage;
+	
+	
 	SaveToCSV saveFile;
     
     // Use this for initialization
@@ -69,6 +78,8 @@ public class BallTosser : MonoBehaviour {
 		}
         else{
 			myAnim = GameObject.Find(gameObject.name+"/meshPlayer").GetComponent<Animator>();
+			ballUI = GameObject.Find("GUI/tenisBallUI").GetComponent<RawImage>();
+			ballUI.gameObject.SetActive(false);
             //StartCoroutine(GetReady2Play());
 		}
 		
@@ -140,15 +151,18 @@ public class BallTosser : MonoBehaviour {
 	public IEnumerator ThrowBall(Transform gazeTarget, bool throwLeft, bool gaze, float gazeTime) {
         haveBall = false;
 		
-		if(gaze){
-			
+		if(gaze){			
 			//newForth = gazeTarget.position - myTransform.position;
-			//lookingTarget = true;
-			if(throwLeft)
+			if(throwLeft){
 				myAnim.SetInteger("gazeValue",1);
-			else
+				newForth = targetRight.position - myTransform.position;
+			}
+			else{
 				myAnim.SetInteger("gazeValue",-1);
-
+				newForth = targetLeft.position - myTransform.position;
+			}
+			//lookingTarget = true;
+			
 			yield return new WaitForSeconds(gazeTime);
 			myAnim.SetInteger("gazeValue",0);
 		}
@@ -204,10 +218,10 @@ public class BallTosser : MonoBehaviour {
 			myAnim.SetInteger("throwValue",1);
 			leftTosser.idleFloat = -1.0f;
 		}
-		//lookingTarget = true;		
+		lookingTarget = true;		
 		
 		yield return new WaitForSeconds(throwTime);
-		ThrowBall(left);
+		ThrowBallNow(left);
 		myAnim.SetInteger("throwValue",0);
 		
 		if(left)
@@ -215,7 +229,7 @@ public class BallTosser : MonoBehaviour {
 		else
 			myAnim.SetFloat("idle",1f);
 	}
-    void ThrowBall(bool left) {
+    void ThrowBallNow(bool left) {
         Vector3 origin;
         Transform target;
         if (left)
@@ -223,15 +237,15 @@ public class BallTosser : MonoBehaviour {
             origin = leftHandLoc.position;
             target = targetLeft;
 			//make right player look to left player
-			//rightTosser.newForth = targetLeft.position - targetRight.position;
-			//rightTosser.lookingTarget = true;
+			rightTosser.newForth = targetLeft.position - targetRight.position;
+			rightTosser.lookingTarget = true;
         }
         else
         {
             origin = rightHandLoc.position;
             target = targetRight;
-			//leftTosser.newForth = targetRight.position - targetLeft.position;
-			//leftTosser.lookingTarget = true;
+			leftTosser.newForth = targetRight.position - targetLeft.position;
+			leftTosser.lookingTarget = true;
         }
 
         GameObject ball = (GameObject)GameObject.Instantiate(ballPrefab, origin, Quaternion.identity);
@@ -259,6 +273,8 @@ public class BallTosser : MonoBehaviour {
 		
 		haveBall = false;
         myBall.SetActive(false);
+		if(isplayer)
+			ballUI.texture = ballGhostImage;
 		lookingTarget = false;
 
         //while there are no other players to throw the ball back...
@@ -268,15 +284,21 @@ public class BallTosser : MonoBehaviour {
         yield return new WaitForSeconds(0.8f);
         haveBall = true;		
         myBall.SetActive(true);
+		if(isplayer)
+			ballUI.texture = ballImage;
     }
     IEnumerator GetReady2Play()
     {
         yield return new WaitForSeconds(4f);
         haveBall = true;
-        myBall.SetActive(true);        
+        myBall.SetActive(true);
+		if(isplayer)
+			ballUI.texture = ballImage;
     }
 	void prepareToTakeBall(bool fromPlayer, bool left){
-		lookingTarget = false;
+		//lookingTarget = false;
+		newForth = targetRight.position - myTransform.position;
+		lookingTarget = true;
 		StartCoroutine(CatchBall(fromPlayer, left));
 	}
 	IEnumerator CatchBall(bool fromPlayer, bool left) {
@@ -300,7 +322,13 @@ public class BallTosser : MonoBehaviour {
         if (other.tag == "cyberball")
         {            		
             Destroy(other.gameObject);
-			myBall.SetActive(true);
+			
+			if(isplayer){
+				ballUI.texture = ballImage;
+			}
+			//else{
+				myBall.SetActive(true);
+			//}
 			haveBall = true;
         }
         Debug.Log(gameObject.name + " was triggered by "+other.gameObject.name);
