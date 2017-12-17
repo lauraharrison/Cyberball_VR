@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 114056869956113772}
   - component: {fileID: 195679866990695086}
   m_Layer: 0
-  m_Name: CyberBallPlayer
+  m_Name: cyberBallPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2576,6 +2576,8 @@ Camera:
   m_TargetDisplay: 2
   m_TargetEye: 2
   m_HDR: 0
+  m_AllowMSAA: 1
+  m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
@@ -2610,6 +2612,8 @@ Camera:
   m_TargetDisplay: 0
   m_TargetEye: 1
   m_HDR: 0
+  m_AllowMSAA: 1
+  m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
@@ -2644,6 +2648,8 @@ Camera:
   m_TargetDisplay: 1
   m_TargetEye: 1
   m_HDR: 0
+  m_AllowMSAA: 1
+  m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
@@ -2679,6 +2685,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!23 &23496831758468408
 MeshRenderer:
@@ -2710,6 +2717,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!33 &33785820376344036
 MeshFilter:
@@ -2959,8 +2967,12 @@ MonoBehaviour:
     waitTime: 1
     gazeToOther: 0
     gazeTime: 0
+  skyDome: {fileID: 0}
   leftPlayer: {fileID: 0}
   rightPlayer: {fileID: 0}
+  readCSVsequence: 0
+  nightFallSpeed: 10
+  doNightFall: 0
 --- !u!114 &114069530080696088
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3068,6 +3080,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetLeft: {fileID: 0}
   targetRight: {fileID: 0}
+  lookTargetLeft: {fileID: 0}
+  lookTargetRight: {fileID: 0}
   rightHandLoc: {fileID: 4000011739964280}
   leftHandLoc: {fileID: 4000011739964280}
   ballPrefab: {fileID: 1561806879950692, guid: 92a6b869c32e160499b8be981ec5f247, type: 2}
@@ -3077,6 +3091,9 @@ MonoBehaviour:
   isplayer: 1
   includePlayerPercentage: 0.5
   throwTime: 0.8
+  catchTime: 0.8
+  prepareTime: 0.8
+  prepareTimePlayer: 0.8
   smoothRot: 0.5
   newForth: {x: 0, y: 0, z: 0}
   lookingTarget: 0
@@ -3087,6 +3104,11 @@ MonoBehaviour:
   lookTo: {fileID: 0}
   lookSpeed: 5
   offsetY: 0.15
+  idleFloat: 0
+  idleFloatSpeed: 10
+  ballUI: {fileID: 0}
+  ballImage: {fileID: 0}
+  ballGhostImage: {fileID: 0}
 --- !u!114 &114624402700857966
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3114,6 +3136,13 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  greeting1: {fileID: 0}
+  greeting2: {fileID: 0}
+  CameraTransform: {fileID: 0}
+  bobAmp: 0.01
+  bobFreq: 10
+  lookLearnTreshold: 100
+  msgFadeTime: 0.5
 --- !u!114 &114691195087200806
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3235,6 +3264,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
@@ -3342,6 +3372,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
@@ -3400,6 +3431,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
@@ -3446,6 +3478,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
@@ -3497,6 +3530,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
@@ -3548,6 +3582,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
@@ -3592,6 +3627,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
@@ -3615,6 +3651,7 @@ NavMeshAgent:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012457019574}
   m_Enabled: 1
+  m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
   m_Acceleration: 8

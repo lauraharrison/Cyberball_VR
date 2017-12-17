@@ -106,14 +106,14 @@ public class BallTosser : MonoBehaviour {
         {
             if(isplayer)
             {
-                if(Input.GetKeyDown(KeyCode.L))
+                if(Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
                 {
 					myBall.SetActive(false);
 					haveBall = false;
                     StartCoroutine(AnimateThrow(false));
 					saveFile.WriteToFile("Player to Remy");
                 }
-                if(Input.GetKeyDown(KeyCode.J))
+                if(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
                 {
 					myBall.SetActive(false);
 					haveBall = false;
@@ -155,11 +155,11 @@ public class BallTosser : MonoBehaviour {
 			//newForth = gazeTarget.position - myTransform.position;
 			if(throwLeft){
 				myAnim.SetInteger("gazeValue",1);
-				newForth = targetRight.position - myTransform.position;
+				//newForth = targetRight.position - myTransform.position;
 			}
 			else{
 				myAnim.SetInteger("gazeValue",-1);
-				newForth = targetLeft.position - myTransform.position;
+				//newForth = targetLeft.position - myTransform.position;
 			}
 			//lookingTarget = true;
 			
@@ -218,7 +218,7 @@ public class BallTosser : MonoBehaviour {
 			myAnim.SetInteger("throwValue",1);
 			leftTosser.idleFloat = -1.0f;
 		}
-		lookingTarget = true;		
+		//lookingTarget = true;		
 		
 		yield return new WaitForSeconds(throwTime);
 		ThrowBallNow(left);
@@ -238,14 +238,14 @@ public class BallTosser : MonoBehaviour {
             target = targetLeft;
 			//make right player look to left player
 			rightTosser.newForth = targetLeft.position - targetRight.position;
-			rightTosser.lookingTarget = true;
+			//rightTosser.lookingTarget = true;
         }
         else
         {
             origin = rightHandLoc.position;
             target = targetRight;
 			leftTosser.newForth = targetRight.position - targetLeft.position;
-			leftTosser.lookingTarget = true;
+			//leftTosser.lookingTarget = true;
         }
 
         GameObject ball = (GameObject)GameObject.Instantiate(ballPrefab, origin, Quaternion.identity);
@@ -297,8 +297,14 @@ public class BallTosser : MonoBehaviour {
     }
 	void prepareToTakeBall(bool fromPlayer, bool left){
 		//lookingTarget = false;
-		newForth = targetRight.position - myTransform.position;
-		lookingTarget = true;
+		//newForth = targetRight.position - myTransform.position;
+		//lookingTarget = true;
+		/*
+		if(left)
+			myAnim.SetInteger("gazeValue",-1);
+		else
+			myAnim.SetInteger("gazeValue",1);
+		*/
 		StartCoroutine(CatchBall(fromPlayer, left));
 	}
 	IEnumerator CatchBall(bool fromPlayer, bool left) {

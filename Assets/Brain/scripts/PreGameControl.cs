@@ -15,6 +15,9 @@ public class PreGameControl : MonoBehaviour {
 	public float rotateSpeed = 10f;
 	public float startupTime = 2.5f;
 	public bool inPreGame = true;
+	public bool wakingUp = true;
+	bool invited2play;
+	
 	bool watchingToStart;
 	AudioSource leftPlayerSound;
 	AudioSource rightPlayerSound;
@@ -37,6 +40,8 @@ public class PreGameControl : MonoBehaviour {
 	Text msgToStartUI;
 	Text msgToLookUI;
 	Text msgToLookShadUI;
+	Text msgToStartGameUI;
+	Text msgToStartGameShadUI;
 	int lookLearned;
 	public int lookLearnTreshold = 100;
 	public float msgFadeTime = 0.5f;
@@ -65,71 +70,118 @@ public class PreGameControl : MonoBehaviour {
 		msgToLookShadUI = GameObject.Find("GUI/msgToLookShadow").GetComponent<Text>();
 		msgToLookShadUI.enabled = true;
 		
-		StartCoroutine(Startup());
+		msgToStartGameUI = GameObject.Find("GUI/msgToStartGame").GetComponent<Text>();
+		msgToStartGameUI.enabled = false;
+		msgToStartGameShadUI = GameObject.Find("GUI/msgToStartGameShad").GetComponent<Text>();
+		msgToStartGameShadUI.enabled = false;
+		
+		//StartCoroutine(Startup());
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if(inPreGame){
+		if(lookLearned < lookLearnTreshold){
+			if(CrossPlatformInputManager.GetAxis("Horizontal") != 0)
+				lookLearned++;
+		}
+		else{
+			msgToLookUI.CrossFadeAlpha(0.0f,msgFadeTime,false);
+			msgToLookShadUI.CrossFadeAlpha(0.0f, msgFadeTime, false);
+		}
+		if(wakingUp){
 			myTransform.Rotate(0f,CrossPlatformInputManager.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime, 0f);
-			if(walking){
-				Vector3 cameraPos = CameraTransform.position;
-				cameraPos.y += Mathf.Sin(bobFreq*Time.time)*bobAmp;
-				CameraTransform.position = cameraPos;
+			//check if spot other players to activate them
+			if(invited2play){
+				if((Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D)) || (Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.RightArrow))){
+					wakingUp = false;
+					inPreGame = true;
+					
+					//fade msg to Start game
+					msgToStartGameUI.CrossFadeAlpha(0.0f,msgFadeTime,false);
+					msgToStartGameShadUI.CrossFadeAlpha(0.0f, msgFadeTime, false);
+					
+					if(!playersActive)
+						StartCoroutine(ActivatePlayers());
+				}				
 			}
 			
-			if(lookLearned < lookLearnTreshold){
-				if(CrossPlatformInputManager.GetAxis("Horizontal") != 0)
-					lookLearned++;
-			}
-			else{
-				msgToLookUI.CrossFadeAlpha(0.0f,msgFadeTime,false);
-				msgToLookShadUI.CrossFadeAlpha(0.0f, msgFadeTime, false);
+			if(Vector3.Angle(leftPlayer.position - myTransform.position, myTransform.forward) <= lookAngle){
+				if(!invited2play){
+					invited2play = true;
+					
+					//greet player inviting him to play
+					StartCoroutine(GreetPlayer());
+					//show message to start game
+					msgToStartGameUI.enabled = true;
+					msgToStartGameShadUI.enabled = true;
+					
+					msgToLookUI.CrossFadeAlpha(0.0f,msgFadeTime,false);
+					msgToLookShadUI.CrossFadeAlpha(0.0f, msgFadeTime, false);
+				}
 			}
 			
-			//if(Input.GetKeyDown("space"))
-			//	ActivatePlayers();
-		
-			if(Input.GetKeyDown(KeyCode.S)){
-				navAgent.enabled = false;
-				myTransform.position = playerNavPoints[playerNavPoints.Length-1].position;
-				watchingToStart = true;
-				walking = false;
+			if(Input.GetKeyDown("space")){
 				if(!playersActive)
 					StartCoroutine(ActivatePlayers());
-			}				
-			
-			//update navPoint in case it is lesser than the max number (4)
-			//otherwise, activate players
-			if (!navAgent.pathPending) {
-				if (navAgent.remainingDistance <= 2*navAgent.stoppingDistance) {
-					//if (!navAgent.hasPath || navAgent.velocity.sqrMagnitude == 0f) {
-						if(navPointIndex < playerNavPoints.Length){
-							navAgent.SetDestination(playerNavPoints[navPointIndex].position);
-							if (navPointIndex == 3)
-								StartCoroutine (GreetPlayer());
-							navPointIndex++;
-							if(navPointIndex == playerNavPoints.Length)
-								walking = false;
-						}
-						else{
-							if(!playersActive)
-								StartCoroutine(ActivatePlayers());
-						}							
-					//}
+			}
+		}
+		else{
+			if(inPreGame){
+				myTransform.Rotate(0f,CrossPlatformInputManager.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime, 0f);
+				if(walking){
+					Vector3 cameraPos = CameraTransform.position;
+					cameraPos.y += Mathf.Sin(bobFreq*Time.time)*bobAmp;
+					CameraTransform.position = cameraPos;
+				}		
+				/*
+				if(Input.GetKeyDown("space")){
+					if(!playersActive)
+						StartCoroutine(ActivatePlayers());
 				}
-			}		
-		
-			if(watchingToStart){
-				Debug.DrawRay(myTransform.position, middleTargetDir, Color.black, 100f);
-				Debug.DrawRay(myTransform.position, myTransform.forward, Color.red, 100f);
-				//check if player is looking to both the other players
-				if(Vector3.Angle(middleTargetDir, myTransform.forward) <= lookAngle){
-					msgToStartUI.gameObject.SetActive(false);
-					GetComponent<BallTosser>().ballUI.gameObject.SetActive(true);
-					inPreGame = false;
-					Debug.Log("<color=blue>Started throwing game</color>");
-					gameManager.ThrowBall();
+				*/				
+				if(Input.GetKeyDown(KeyCode.S)){
+					navAgent.enabled = false;
+					myTransform.position = playerNavPoints[playerNavPoints.Length-1].position;
+					watchingToStart = true;
+					walking = false;
+					if(!playersActive)
+						StartCoroutine(ActivatePlayers());
+				}				
+				
+				//update navPoint in case it is less than the max number (4)
+				//otherwise, activate players
+				if (!navAgent.pathPending) {
+					if (navAgent.remainingDistance <= 2*navAgent.stoppingDistance) {
+						//if (!navAgent.hasPath || navAgent.velocity.sqrMagnitude == 0f) {
+							if(navPointIndex < playerNavPoints.Length){
+								navAgent.SetDestination(playerNavPoints[navPointIndex].position);
+								if (navPointIndex == 3)
+									StartCoroutine(GreetPlayer());
+								navPointIndex++;
+								if(navPointIndex == playerNavPoints.Length)
+									walking = false;
+							}
+							else{
+								if(!playersActive)
+									StartCoroutine(ActivatePlayers());
+							}							
+						//}
+					}
+				}		
+			
+				if(watchingToStart){
+					Debug.DrawRay(myTransform.position, middleTargetDir, Color.black, 100f);
+					Debug.DrawRay(myTransform.position, myTransform.forward, Color.red, 100f);
+					//check if player is looking to both the other players
+					if(Vector3.Angle(middleTargetDir, myTransform.forward) <= lookAngle){
+						msgToStartUI.gameObject.SetActive(false);
+						GetComponent<BallTosser>().ballUI.gameObject.SetActive(true);
+						inPreGame = false;
+						Debug.Log("<color=blue>Started throwing game</color>");
+						gameManager.ThrowBall();
+						
+						gameObject.GetComponent<PreGameControl>().enabled = false;
+					}
 				}
 			}
 		}

@@ -220,7 +220,8 @@ public class Manager : MonoBehaviour {
 		if(leftTosser.haveBall){
 			if(throwSequence[throwIndex].throwToPlayer){
 				gazeTarget = rightPlayer;
-				StartCoroutine(CallOut(throwSequence[throwIndex].gazeTime, true));
+				if(throwIndex == 0)
+					StartCoroutine(CallOut(throwSequence[throwIndex].gazeTime, true));
 				saveFile.WriteToFile("Stefani to Player",throwSequence[throwIndex].gazeTime);
 			}
 			else{
@@ -234,7 +235,8 @@ public class Manager : MonoBehaviour {
 		else{
 			if(throwSequence[throwIndex].throwToPlayer){
 				gazeTarget = leftPlayer;
-				StartCoroutine(CallOut(throwSequence[throwIndex].gazeTime, false));
+				if(throwIndex == 0)
+					StartCoroutine(CallOut(throwSequence[throwIndex].gazeTime, false));
 				saveFile.WriteToFile("Remy to Player",throwSequence[throwIndex].gazeTime);
 			}
 			else{
