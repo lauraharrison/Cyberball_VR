@@ -16193,7 +16193,7 @@ Prefab:
     - target: {fileID: 114056869956113772, guid: 7a748481462eca645b1063432cba4d61,
         type: 2}
       propertyPath: throwSequence.Array.size
-      value: 20
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114624402700857966, guid: 7a748481462eca645b1063432cba4d61,
         type: 2}
@@ -19523,6 +19523,11 @@ Prefab:
       propertyPath: rolloffMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114504842893342670, guid: 5b7688279c1060244aae3160584d3b97,
+        type: 2}
+      propertyPath: throwTargetLeft
+      value: 
+      objectReference: {fileID: 1960709213}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5b7688279c1060244aae3160584d3b97, type: 2}
   m_IsPrefabParent: 0
@@ -26353,6 +26358,11 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 496452, guid: 4a65224a48c1fbd4d9b1743725d2a4d3, type: 2}
   m_PrefabInternal: {fileID: 1954966914}
+--- !u!4 &1960709213 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4988257055419816, guid: 7a748481462eca645b1063432cba4d61,
+    type: 2}
+  m_PrefabInternal: {fileID: 1159868538}
 --- !u!1001 &1962847218
 Prefab:
   m_ObjectHideFlags: 0

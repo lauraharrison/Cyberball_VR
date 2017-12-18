@@ -6,8 +6,8 @@ public class BallTosser : MonoBehaviour {
     public Transform targetLeft;
     public Transform targetRight;
 	
-	public Transform lookTargetLeft;
-	public Transform lookTargetRight;
+	public Transform throwTargetLeft;
+	public Transform throwTargetRight;
 	
 	BallTosser leftTosser;
 	BallTosser rightTosser;	
@@ -225,17 +225,23 @@ public class BallTosser : MonoBehaviour {
 		myAnim.SetInteger("throwValue",0);
 		
 		if(left)
-			myAnim.SetFloat("idle",-1f);
+			myAnim.SetFloat("idle",-1.0f);
 		else
-			myAnim.SetFloat("idle",1f);
+			myAnim.SetFloat("idle",1.0f);
+		
 	}
     void ThrowBallNow(bool left) {
         Vector3 origin;
         Transform target;
+		Vector3 throwpos;
         if (left)
         {
             origin = leftHandLoc.position;
             target = targetLeft;
+			if(throwTargetLeft)
+				throwpos = throwTargetLeft.position;
+			else
+				throwpos = target.position;
 			//make right player look to left player
 			rightTosser.newForth = targetLeft.position - targetRight.position;
 			//rightTosser.lookingTarget = true;
@@ -244,6 +250,10 @@ public class BallTosser : MonoBehaviour {
         {
             origin = rightHandLoc.position;
             target = targetRight;
+			if(throwTargetRight)
+				throwpos = throwTargetRight.position;
+			else
+				throwpos = target.position;
 			leftTosser.newForth = targetRight.position - targetLeft.position;
 			//leftTosser.lookingTarget = true;
         }
@@ -263,7 +273,7 @@ public class BallTosser : MonoBehaviour {
 
         //calculating trajectory
         float gravityAcel = Physics.gravity.y;
-        tossSpeedy = (-1*(1-offsetY)) * gravityAcel * (Vector3.Distance(target.position,origin)) / (2 * tossSpeedx);
+        tossSpeedy = (-1*(1-offsetY)) * gravityAcel * (Vector3.Distance(throwpos,origin)) / (2 * tossSpeedx);
         ball.GetComponent<Rigidbody>().velocity = ballTrans.forward * tossSpeedx + ballTrans.up * tossSpeedy;
         
 		//float impactTime = Vector3.Distance(target.position,origin)/tossSpeedx;
