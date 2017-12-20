@@ -9209,6 +9209,7 @@ GameObject:
   m_Component:
   - component: {fileID: 670894712}
   - component: {fileID: 670894711}
+  - component: {fileID: 670894713}
   m_Layer: 0
   m_Name: saveFileContainer
   m_TagString: SaveFile
@@ -9243,6 +9244,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &670894713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 670894710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 382f59698e1d11940bc4e8647ec3e2a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &677225273 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1000012457019574, guid: 7a748481462eca645b1063432cba4d61,
@@ -9328,6 +9340,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &677225283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 677225273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 382f59698e1d11940bc4e8647ec3e2a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &677264517 stripped
 Transform:
   m_PrefabParentObject: {fileID: 455824, guid: 98701f5a958777842aa22b1cf5ea6870, type: 2}
@@ -22259,7 +22282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

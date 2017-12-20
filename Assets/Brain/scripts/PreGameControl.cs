@@ -46,8 +46,14 @@ public class PreGameControl : MonoBehaviour {
 	public int lookLearnTreshold = 100;
 	public float msgFadeTime = 0.5f;
 	
-
 	Animator leftAnim;
+	
+	float timer;
+	float fadeTime = 1.0f;
+	float startFade;
+	bool fadingin;
+	Image fadeTex;
+	Color fadeColor;
 
 	// Use this for initialization
 	void Start () {
@@ -76,10 +82,29 @@ public class PreGameControl : MonoBehaviour {
 		msgToStartGameShadUI.enabled = false;
 		
 		//StartCoroutine(Startup());
+		fadeTex = GameObject.Find("GUI/fadeTexture").GetComponent<Image>();
+		fadeColor = new Color(0.0f, 0.0f, 0.0f, 1.0f);
+		fadeTime = gameManager.fadeTime;
+		fadingin = true;
+		startFade = 0.0f;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		timer += Time.deltaTime;
+		if(fadingin){
+			if(timer <= startFade + fadeTime){
+				fadeColor.a = 1.0f - (timer-startFade)/fadeTime;
+				//Debug.Log("fade alpha: "+fadeColor.a.ToString());
+				fadeTex.color = fadeColor;
+			}
+			else{
+				fadeColor.a = 0.0f;
+				fadeTex.color = fadeColor;
+				fadingin = false;				
+			}				
+		}
+		
 		if(lookLearned < lookLearnTreshold){
 			if(CrossPlatformInputManager.GetAxis("Horizontal") != 0)
 				lookLearned++;

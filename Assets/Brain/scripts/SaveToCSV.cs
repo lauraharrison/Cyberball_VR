@@ -14,6 +14,17 @@ public class SaveToCSV : MonoBehaviour {
     string[] columnHeaders;
     float timer;
     string path = @"LogFiles/";
+	string filePath;
+
+	starterData starterData;
+
+	void Awake(){
+		starterData = GetComponent<starterData>();
+		subjectID = starterData.SubjectID.ToString();
+		runNumber = starterData.runNumber.ToString();
+		path = starterData.sequenceFilePath;
+	}
+
     // Use this for initialization
     void Start () {
         timer = 0;
@@ -33,7 +44,11 @@ public class SaveToCSV : MonoBehaviour {
         {
             Debug.LogError("Assign headTransform in the CSVLogFile GameObject");
         }
-        path += "SubjectID_" + subjectID + "_" + "RunNumber_" + runNumber +".csv";
+        filePath = path + "SubjectID_" + subjectID + "_" + "RunNumber_" + runNumber +".csv";
+
+		//check if file exists before writing anything
+		CheckIfExistingFile();
+
         columnHeaders = new string[] {
            "Time (seconds)",
            "Throw",
@@ -43,7 +58,7 @@ public class SaveToCSV : MonoBehaviour {
         };        
 
         // Currently overrides any existing file
-       // if (!File.Exists(path))
+		// if (!File.Exists(filePath))
        // {
             // Create a file to write to.
             string createColumnHeaders = "";
@@ -61,16 +76,16 @@ public class SaveToCSV : MonoBehaviour {
                 createColumnHeaders += columnHeaders[i];
             }
             createColumnHeaders += Environment.NewLine;
-            File.WriteAllText(path, createColumnHeaders);
+			File.WriteAllText(filePath, createColumnHeaders);
        // }
 
         // This text is always added, making the file longer over time
         // if it is not deleted.
        // string appendText = "This is extra text" + Environment.NewLine;
-       // File.AppendAllText(path, appendText);
+		// File.AppendAllText(filePath, appendText);
 
         // Open the file to read from.
-        //string readText = File.ReadAllText(path);
+		//string readText = File.ReadAllText(filePath);
        // Console.WriteLine(readText);
     }
 	
@@ -101,6 +116,14 @@ public class SaveToCSV : MonoBehaviour {
         //row += "\"(" + player.transform.position.x + "," + player.transform.position.y + ")\"";
         row += Environment.NewLine;
         Debug.Log("Writing: " + row);
-        File.AppendAllText(path, row);
+		File.AppendAllText(filePath, row);
     }
+
+	void CheckIfExistingFile(){
+		if (File.Exists (filePath)) {
+			string timeStamp = System.DateTime.Now.ToShortDateString().Replace ("/", "_");
+			timeStamp += "_"+ System.DateTime.Now.ToShortTimeString().Replace(":","_").Replace(" ","_");
+			filePath = path + "SubjectID_" + subjectID + "_" + "RunNumber_" + runNumber + "_"+timeStamp + ".csv";
+		}
+	}
 }

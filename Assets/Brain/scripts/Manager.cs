@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class throwDetail{
@@ -27,7 +28,7 @@ public class Manager : MonoBehaviour {
 	AudioSource rightAudio;
 
 	SaveToCSV saveFile;
-	string sequenceFilePath = @"LogFiles/throwSequence.csv";
+	public string sequenceFilePath = @"LogFiles/throwSequence.csv";
 	public bool readCSVsequence;
 	
 	Color horizonColor;
@@ -44,7 +45,20 @@ public class Manager : MonoBehaviour {
 	float stepG;
 	float stepB;
 	
+	public bool endAfterThrowSeq;
+	float timer;
+	public float fadeTime = 1.0f;
+	float startFade;
+	bool fadingout;
+	Image fadeTex;
+	Color fadeColor;
+
+	starterData starterData;
+					
 	void Awake() {
+		starterData = GetComponent<starterData>();
+		sequenceFilePath = starterData.sequenceFilePath + starterData.throwSequence;
+		Debug.Log("throwSequence path: "+sequenceFilePath);
 		leftTosser = leftPlayer.GetComponent<BallTosser> ();
 		rightTosser = rightPlayer.GetComponent<BallTosser> ();
 
@@ -119,29 +133,55 @@ public class Manager : MonoBehaviour {
 		stepR = (nightColor.r - skyColor.r) / throwSequence.Count;
 		stepG = (nightColor.g - skyColor.g) / throwSequence.Count;
 		stepB = (nightColor.b - skyColor.b) / throwSequence.Count;
+		
+		fadeTex = GameObject.Find("GUI/fadeTexture").GetComponent<Image>();
+		fadeColor = new Color(0.0f, 0.0f, 0.0f, 1.0f);		
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		timer += Time.deltaTime;		
+		if(fadingout){
+			if(timer <= startFade + fadeTime){
+				fadeColor.a = (timer-startFade)/fadeTime;
+				fadeTex.color = fadeColor;
+				Debug.Log("fade alpha: "+fadeColor.a.ToString());
+			}
+			else{
+				fadeColor.a = 1.0f;
+				fadeTex.color = fadeColor;
+				fadingout = false;
+				Application.Quit();
+			}
+		}
+		
 		if( (leftTosser.haveBall || rightTosser.haveBall) && throwIndex < throwSequence.Count && freeToThrow)
 		{
 			StartCoroutine(WaitNThrowBall());
 		}
 		else{
 			if((leftTosser.haveBall || rightTosser.haveBall) && freeToThrow){
-				if( Input.GetKeyDown("p") ){
-					freeToThrow = false;
-					if(Input.GetKey("g"))					
-						UserThrow(true,true);
-					else
-						UserThrow(true,false);
+				if(endAfterThrowSeq){
+					if(!fadingout){
+						startFade = timer;
+					}
+					fadingout = true;
 				}
-				if( Input.GetKeyDown("o") ){
-					freeToThrow = false;
-					if(Input.GetKey("g"))
-						UserThrow(false,true);
-					else
-						UserThrow(false,false);
+				else{
+					if( Input.GetKeyDown("p") ){
+						freeToThrow = false;
+						if(Input.GetKey("g"))					
+							UserThrow(true,true);
+						else
+							UserThrow(true,false);
+					}
+					if( Input.GetKeyDown("o") ){
+						freeToThrow = false;
+						if(Input.GetKey("g"))
+							UserThrow(false,true);
+						else
+							UserThrow(false,false);
+					}
 				}
 			}
 		}
