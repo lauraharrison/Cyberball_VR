@@ -19,7 +19,8 @@ public class starter : MonoBehaviour {
 
 	// Use this for initialization
 	void Start(){
-		DirectoryInfo d = new DirectoryInfo(throwSequencesLocation);
+		starterData.sequenceFilePath = Application.dataPath + "/" + throwSequencesLocation;
+		DirectoryInfo d = new DirectoryInfo(starterData.sequenceFilePath);
 		FileInfo[] Files = d.GetFiles(throwSequenceCoreName+"*.csv"); //Getting Text files
 
 		throwSeqDropdown.options.Clear();
@@ -37,13 +38,12 @@ public class starter : MonoBehaviour {
 	void Update (){
 		scene2LoadName = sceneNameDropdown.options[sceneNameDropdown.value].text;
 
-		if(Input.GetKeyDown (starterKey)){
+		if(Input.GetKeyDown(starterKey) || Input.GetKeyDown(KeyCode.Alpha5)){
 			StartGame();
 		}		
 	}
 
-	public void StartGame(){
-		starterData.sequenceFilePath = throwSequencesLocation;
+	public void StartGame(){		
 		starterData.throwSequence = throwSeqDropdown.options[throwSeqDropdown.value].text;
 
 		try{

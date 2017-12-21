@@ -137,6 +137,8 @@ GameObject:
   - component: {fileID: 114624402700857966}
   - component: {fileID: 114056869956113772}
   - component: {fileID: 195679866990695086}
+  - component: {fileID: 82720853831360346}
+  - component: {fileID: 114505318401582450}
   m_Layer: 0
   m_Name: cyberBallPlayer
   m_TagString: Untagged
@@ -1008,7 +1010,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1743518400184612
 GameObject:
   m_ObjectHideFlags: 1
@@ -1433,8 +1435,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012457019574}
-  m_LocalRotation: {x: -0, y: 0.7798998, z: -0, w: 0.6259045}
-  m_LocalPosition: {x: 113.61, y: 10.986, z: 131.87}
+  m_LocalRotation: {x: -0, y: 0.9995199, z: -0, w: -0.030983757}
+  m_LocalPosition: {x: 113.77, y: 10.986, z: 199.54}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4000011351865966}
@@ -1442,7 +1444,7 @@ Transform:
   - {fileID: 4000011220416992}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 102.503006, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 183.551, z: 0}
 --- !u!4 &4000013898756994
 Transform:
   m_ObjectHideFlags: 1
@@ -2573,7 +2575,7 @@ Camera:
     m_Bits: 4294967295
   m_RenderingPath: 3
   m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 2
+  m_TargetDisplay: 1
   m_TargetEye: 2
   m_HDR: 0
   m_AllowMSAA: 1
@@ -2645,7 +2647,7 @@ Camera:
     m_Bits: 4294967295
   m_RenderingPath: 3
   m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 1
+  m_TargetDisplay: 2
   m_TargetEye: 1
   m_HDR: 0
   m_AllowMSAA: 1
@@ -2781,6 +2783,86 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010682574898}
   m_Enabled: 0
+--- !u!82 &82720853831360346
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012457019574}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 4ff0bb21724006c4ba740c1674fe0013, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!92 &92000010556822716
 Behaviour:
   m_ObjectHideFlags: 1
@@ -2937,42 +3019,413 @@ MonoBehaviour:
   throwSequence:
   - throwToPlayer: 1
     waitTime: 5
-    gazeToOther: 0
-    gazeTime: 0
-  - throwToPlayer: 0
-    waitTime: 1
     gazeToOther: 1
-    gazeTime: 2
-  - throwToPlayer: 0
-    waitTime: 1
-    gazeToOther: 0
-    gazeTime: 0
-  - throwToPlayer: 0
-    waitTime: 1
-    gazeToOther: 0
-    gazeTime: 0
-  - throwToPlayer: 0
-    waitTime: 1
-    gazeToOther: 0
-    gazeTime: 0
+    gazeTime: 3
   - throwToPlayer: 1
-    waitTime: 1
-    gazeToOther: 0
-    gazeTime: 0
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
   - throwToPlayer: 1
-    waitTime: 1
-    gazeToOther: 0
-    gazeTime: 0
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
   - throwToPlayer: 1
-    waitTime: 1
-    gazeToOther: 0
-    gazeTime: 0
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
+  - throwToPlayer: 1
+    waitTime: 5
+    gazeToOther: 1
+    gazeTime: 3
   skyDome: {fileID: 0}
   leftPlayer: {fileID: 0}
   rightPlayer: {fileID: 0}
+  sequenceFilePath: LogFiles/throwSequence.csv
   readCSVsequence: 0
-  nightFallSpeed: 10
+  nightFallSpeed: 0.1
   doNightFall: 0
+  endAfterThrowSeq: 1
+  fadeTime: 3
 --- !u!114 &114069530080696088
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3041,6 +3494,17 @@ MonoBehaviour:
   useDepthTexture: 1
   sunShaftsShader: {fileID: 4800000, guid: d3b1c8c1036784176946f5cfbfb7fe4c, type: 3}
   simpleClearShader: {fileID: 4800000, guid: f688f89ed5eb847c5b19c934a0f1e772, type: 3}
+--- !u!114 &114505318401582450
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012457019574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 382f59698e1d11940bc4e8647ec3e2a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114562942086361750
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3080,8 +3544,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetLeft: {fileID: 0}
   targetRight: {fileID: 0}
-  lookTargetLeft: {fileID: 0}
-  lookTargetRight: {fileID: 0}
+  throwTargetLeft: {fileID: 0}
+  throwTargetRight: {fileID: 0}
   rightHandLoc: {fileID: 4000011739964280}
   leftHandLoc: {fileID: 4000011739964280}
   ballPrefab: {fileID: 1561806879950692, guid: 92a6b869c32e160499b8be981ec5f247, type: 2}
@@ -3107,8 +3571,8 @@ MonoBehaviour:
   idleFloat: 0
   idleFloatSpeed: 10
   ballUI: {fileID: 0}
-  ballImage: {fileID: 0}
-  ballGhostImage: {fileID: 0}
+  ballImage: {fileID: 2800000, guid: b4cbd75db77f14b42971e27f58bbe58c, type: 3}
+  ballGhostImage: {fileID: 2800000, guid: f3cbf310888e7784fa57a12def8425a0, type: 3}
 --- !u!114 &114624402700857966
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3123,24 +3587,17 @@ MonoBehaviour:
   leftPlayer: {fileID: 0}
   rightPlayer: {fileID: 0}
   rotateSpeed: 100
-  startupTime: 2.5
-  inPreGame: 1
+  startupTime: 4.5
+  inPreGame: 0
+  wakingUp: 1
   lookAngle: 6
   playerNavPoints:
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  greeting1: {fileID: 0}
-  greeting2: {fileID: 0}
-  CameraTransform: {fileID: 0}
-  bobAmp: 0.01
-  bobFreq: 10
+  greeting1: {fileID: 8300000, guid: c216ae2d579c0c647825f8870624c2a8, type: 3}
+  greeting2: {fileID: 8300000, guid: 8db02fa20749cb2498e75cfa6e75d5ca, type: 3}
+  CameraTransform: {fileID: 4000011351865966}
+  bobAmp: 0.02
+  bobFreq: 7
   lookLearnTreshold: 100
   msgFadeTime: 0.5
 --- !u!114 &114691195087200806
@@ -3656,10 +4113,10 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 60
+  m_AngularSpeed: 30
   m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 0
+  m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 1.57
   m_BaseOffset: 0.47

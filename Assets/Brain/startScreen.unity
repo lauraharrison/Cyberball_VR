@@ -1957,7 +1957,7 @@ MonoBehaviour:
   starterKey: 261
   scene2LoadName: Playground
   sceneNameDropdown: {fileID: 300103409}
-  throwSequencesLocation: LogFiles
+  throwSequencesLocation: StreamingAssets/
   throwSequenceCoreName: throwSequence
   throwSeqDropdown: {fileID: 462166240}
   subjetIDin: {fileID: 944396542}

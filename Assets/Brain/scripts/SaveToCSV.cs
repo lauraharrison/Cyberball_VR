@@ -120,10 +120,8 @@ public class SaveToCSV : MonoBehaviour {
     }
 
 	void CheckIfExistingFile(){
-		if (File.Exists (filePath)) {
-			string timeStamp = System.DateTime.Now.ToShortDateString().Replace ("/", "_");
-			timeStamp += "_"+ System.DateTime.Now.ToShortTimeString().Replace(":","_").Replace(" ","_");
-			filePath = path + "SubjectID_" + subjectID + "_" + "RunNumber_" + runNumber + "_"+timeStamp + ".csv";
-		}
+		string timeStamp = System.DateTime.Now.ToShortDateString().Replace ("/", "_");
+		timeStamp += "_"+ System.DateTime.Now.ToShortTimeString().Replace(":","_").Replace(" ","_");
+		filePath = path + "SubjectID_" + subjectID + "_" + "RunNumber_" + runNumber + "_"+timeStamp + ".csv";
 	}
 }
