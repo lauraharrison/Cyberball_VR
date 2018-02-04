@@ -37,11 +37,18 @@ public class PreGameControl : MonoBehaviour {
 	public float bobFreq = 10f;
 	bool walking = true;
 	
-	Text msgToStartUI;
-	Text msgToLookUI;
-	Text msgToLookShadUI;
-	Text msgToStartGameUI;
-	Text msgToStartGameShadUI;
+	Text msgToStartUI_right;
+	Text msgToLookUI_right;
+	Text msgToLookShadUI_right;
+	Text msgToStartGameUI_right;
+	Text msgToStartGameShadUI_right;
+	
+	Text msgToStartUI_left;
+	Text msgToLookUI_left;
+	Text msgToLookShadUI_left;
+	Text msgToStartGameUI_left;
+	Text msgToStartGameShadUI_left;
+	
 	int lookLearned;
 	public int lookLearnTreshold = 100;
 	public float msgFadeTime = 0.5f;
@@ -52,7 +59,8 @@ public class PreGameControl : MonoBehaviour {
 	float fadeTime = 1.0f;
 	float startFade;
 	bool fadingin;
-	Image fadeTex;
+	Image fadeTex_right;
+	Image fadeTex_left;
 	Color fadeColor;
 
 	// Use this for initialization
@@ -68,21 +76,34 @@ public class PreGameControl : MonoBehaviour {
 		rightFriend = rightPlayer.GetComponent<friendControl>();
 		rightPlayerSound = rightPlayer.GetComponent<AudioSource>();
 		
-		msgToStartUI = GameObject.Find("GUI/msgToStart").GetComponent<Text>();
-		msgToStartUI.gameObject.SetActive(false);
+		msgToStartUI_right = GameObject.Find("GUI_right/msgToStart").GetComponent<Text>();
+		msgToStartUI_right.gameObject.SetActive(false);
+		msgToStartUI_left = GameObject.Find("GUI_left/msgToStart").GetComponent<Text>();
+		msgToStartUI_left.gameObject.SetActive(false);
 		
-		msgToLookUI = GameObject.Find("GUI/msgToLook").GetComponent<Text>();
-		msgToLookUI.enabled = true;
-		msgToLookShadUI = GameObject.Find("GUI/msgToLookShadow").GetComponent<Text>();
-		msgToLookShadUI.enabled = true;
 		
-		msgToStartGameUI = GameObject.Find("GUI/msgToStartGame").GetComponent<Text>();
-		msgToStartGameUI.enabled = false;
-		msgToStartGameShadUI = GameObject.Find("GUI/msgToStartGameShad").GetComponent<Text>();
-		msgToStartGameShadUI.enabled = false;
+		msgToLookUI_right = GameObject.Find("GUI_right/msgToLook").GetComponent<Text>();
+		msgToLookUI_right.enabled = true;
+		msgToLookUI_left = GameObject.Find("GUI_left/msgToLook").GetComponent<Text>();
+		msgToLookUI_left.enabled = true;
+		
+		msgToLookShadUI_right = GameObject.Find("GUI_right/msgToLookShadow").GetComponent<Text>();
+		msgToLookShadUI_right.enabled = true;
+		msgToLookShadUI_left = GameObject.Find("GUI_left/msgToLookShadow").GetComponent<Text>();
+		msgToLookShadUI_left.enabled = true;
+		
+		msgToStartGameUI_right = GameObject.Find("GUI_right/msgToStartGame").GetComponent<Text>();
+		msgToStartGameUI_right.enabled = false;
+		msgToStartGameUI_left = GameObject.Find("GUI_left/msgToStartGame").GetComponent<Text>();
+		msgToStartGameUI_left.enabled = false;
+		msgToStartGameShadUI_right = GameObject.Find("GUI_right/msgToStartGameShad").GetComponent<Text>();
+		msgToStartGameShadUI_right.enabled = false;
+		msgToStartGameShadUI_left = GameObject.Find("GUI_left/msgToStartGameShad").GetComponent<Text>();
+		msgToStartGameShadUI_left.enabled = false;
 		
 		//StartCoroutine(Startup());
-		fadeTex = GameObject.Find("GUI/fadeTexture").GetComponent<Image>();
+		fadeTex_right = GameObject.Find("GUI_right/fadeTexture").GetComponent<Image>();
+		fadeTex_left = GameObject.Find("GUI_left/fadeTexture").GetComponent<Image>();
 		fadeColor = new Color(0.0f, 0.0f, 0.0f, 1.0f);
 		fadeTime = gameManager.fadeTime;
 		fadingin = true;
@@ -96,11 +117,13 @@ public class PreGameControl : MonoBehaviour {
 			if(timer <= startFade + fadeTime){
 				fadeColor.a = 1.0f - (timer-startFade)/fadeTime;
 				//Debug.Log("fade alpha: "+fadeColor.a.ToString());
-				fadeTex.color = fadeColor;
+				fadeTex_right.color = fadeColor;
+				fadeTex_left.color = fadeColor;
 			}
 			else{
 				fadeColor.a = 0.0f;
-				fadeTex.color = fadeColor;
+				fadeTex_right.color = fadeColor;
+				fadeTex_left.color = fadeColor;
 				fadingin = false;				
 			}				
 		}
@@ -110,8 +133,10 @@ public class PreGameControl : MonoBehaviour {
 				lookLearned++;
 		}
 		else{
-			msgToLookUI.CrossFadeAlpha(0.0f,msgFadeTime,false);
-			msgToLookShadUI.CrossFadeAlpha(0.0f, msgFadeTime, false);
+			msgToLookUI_right.CrossFadeAlpha(0.0f,msgFadeTime,false);
+			msgToLookUI_left.CrossFadeAlpha(0.0f,msgFadeTime,false);
+			msgToLookShadUI_right.CrossFadeAlpha(0.0f, msgFadeTime, false);
+			msgToLookShadUI_left.CrossFadeAlpha(0.0f, msgFadeTime, false);
 		}
 		if(wakingUp){
 			myTransform.Rotate(0f,CrossPlatformInputManager.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime, 0f);
@@ -122,8 +147,10 @@ public class PreGameControl : MonoBehaviour {
 					inPreGame = true;
 					
 					//fade msg to Start game
-					msgToStartGameUI.CrossFadeAlpha(0.0f,msgFadeTime,false);
-					msgToStartGameShadUI.CrossFadeAlpha(0.0f, msgFadeTime, false);
+					msgToStartGameUI_right.CrossFadeAlpha(0.0f,msgFadeTime,false);
+					msgToStartGameUI_left.CrossFadeAlpha(0.0f,msgFadeTime,false);
+					msgToStartGameShadUI_right.CrossFadeAlpha(0.0f, msgFadeTime, false);
+					msgToStartGameShadUI_left.CrossFadeAlpha(0.0f, msgFadeTime, false);
 					
 					if(!playersActive)
 						StartCoroutine(ActivatePlayers());
@@ -137,11 +164,15 @@ public class PreGameControl : MonoBehaviour {
 					//greet player inviting him to play
 					StartCoroutine(GreetPlayer());
 					//show message to start game
-					msgToStartGameUI.enabled = true;
-					msgToStartGameShadUI.enabled = true;
+					msgToStartGameUI_right.enabled = true;
+					msgToStartGameUI_left.enabled = true;
+					msgToStartGameShadUI_right.enabled = true;
+					msgToStartGameShadUI_left.enabled = true;
 					
-					msgToLookUI.CrossFadeAlpha(0.0f,msgFadeTime,false);
-					msgToLookShadUI.CrossFadeAlpha(0.0f, msgFadeTime, false);
+					msgToLookUI_right.CrossFadeAlpha(0.0f,msgFadeTime,false);
+					msgToLookUI_left.CrossFadeAlpha(0.0f,msgFadeTime,false);
+					msgToLookShadUI_right.CrossFadeAlpha(0.0f, msgFadeTime, false);
+					msgToLookShadUI_left.CrossFadeAlpha(0.0f, msgFadeTime, false);
 				}
 			}
 			
@@ -199,8 +230,10 @@ public class PreGameControl : MonoBehaviour {
 					Debug.DrawRay(myTransform.position, myTransform.forward, Color.red, 100f);
 					//check if player is looking to both the other players
 					if(Vector3.Angle(middleTargetDir, myTransform.forward) <= lookAngle){
-						msgToStartUI.gameObject.SetActive(false);
-						GetComponent<BallTosser>().ballUI.gameObject.SetActive(true);
+						msgToStartUI_right.gameObject.SetActive(false);
+						msgToStartUI_left.gameObject.SetActive(false);
+						GetComponent<BallTosser>().ballUI_right.gameObject.SetActive(true);
+						GetComponent<BallTosser>().ballUI_left.gameObject.SetActive(true);
 						inPreGame = false;
 						Debug.Log("<color=blue>Started throwing game</color>");
 						gameManager.ThrowBall();
@@ -239,6 +272,7 @@ public class PreGameControl : MonoBehaviour {
 	public void CalculateMiddlePoint(){
 		middleTargetDir = leftPlayer.position - myTransform.position + (rightPlayer.position - leftPlayer.position)/2f;
 		watchingToStart = true;
-		msgToStartUI.gameObject.SetActive(true);
+		msgToStartUI_right.gameObject.SetActive(true);
+		msgToStartUI_left.gameObject.SetActive(true);
 	}
 }

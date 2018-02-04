@@ -45,7 +45,8 @@ public class BallTosser : MonoBehaviour {
 	public float idleFloat;
 	public float idleFloatSpeed = 10f;
 	bool paused;
-	public RawImage ballUI;
+	public RawImage ballUI_right;
+	public RawImage ballUI_left;
 	public Texture ballImage;
 	public Texture ballGhostImage;
 	
@@ -78,8 +79,10 @@ public class BallTosser : MonoBehaviour {
 		}
         else{
 			myAnim = GameObject.Find(gameObject.name+"/meshPlayer").GetComponent<Animator>();
-			ballUI = GameObject.Find("GUI/tenisBallUI").GetComponent<RawImage>();
-			ballUI.gameObject.SetActive(false);
+			ballUI_right = GameObject.Find("GUI_right/tenisBallUI").GetComponent<RawImage>();
+			ballUI_right.gameObject.SetActive(false);
+			ballUI_left = GameObject.Find("GUI_left/tenisBallUI").GetComponent<RawImage>();
+			ballUI_left.gameObject.SetActive(false);
             //StartCoroutine(GetReady2Play());
 		}
 		
@@ -283,8 +286,10 @@ public class BallTosser : MonoBehaviour {
 		
 		haveBall = false;
         myBall.SetActive(false);
-		if(isplayer)
-			ballUI.texture = ballGhostImage;
+		if(isplayer){
+			ballUI_right.texture = ballGhostImage;
+			ballUI_left.texture = ballGhostImage;
+		}
 		lookingTarget = false;
 
         //while there are no other players to throw the ball back...
@@ -294,16 +299,20 @@ public class BallTosser : MonoBehaviour {
         yield return new WaitForSeconds(0.8f);
         haveBall = true;		
         myBall.SetActive(true);
-		if(isplayer)
-			ballUI.texture = ballImage;
+		if(isplayer){
+			ballUI_right.texture = ballImage;
+			ballUI_left.texture = ballImage;
+		}
     }
     IEnumerator GetReady2Play()
     {
         yield return new WaitForSeconds(4f);
         haveBall = true;
         myBall.SetActive(true);
-		if(isplayer)
-			ballUI.texture = ballImage;
+		if(isplayer){
+			ballUI_right.texture = ballImage;
+			ballUI_left.texture = ballImage;
+		}
     }
 	void prepareToTakeBall(bool fromPlayer, bool left){
 		//lookingTarget = false;
@@ -340,7 +349,8 @@ public class BallTosser : MonoBehaviour {
             Destroy(other.gameObject);
 			
 			if(isplayer){
-				ballUI.texture = ballImage;
+				ballUI_right.texture = ballImage;
+				ballUI_left.texture = ballImage;
 			}
 			//else{
 				myBall.SetActive(true);
