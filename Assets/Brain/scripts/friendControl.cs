@@ -13,6 +13,8 @@ public class friendControl : MonoBehaviour {
     BallTosser myTosser;
     bool ready;
 	bool move2Location=false;
+	public Transform leftPos;
+	public Transform rightPos;
 
 	// Use this for initialization
 	void Start () {
@@ -38,13 +40,17 @@ public class friendControl : MonoBehaviour {
 					StartCoroutine(GetReady2Play());
 			}
 		}
+		Debug.DrawRay(myTransform.position, myTosser.newForth, new Color (0f, 0f, 1f));
 	}
 
     IEnumerator GetReady2Play()
     {
         ready = true;
+		//wait so the player arrive at their locations
+		//yield return new WaitForSeconds(2.0f);
 		
-		myTosser.newForth = myTosser.targetLeft.position - myTransform.position + (myTosser.targetRight.position - myTosser.targetLeft.position)/2f;
+		myTosser.newForth = leftPos.position - myTransform.position + (rightPos.position - leftPos.position)/2f;
+		Debug.DrawRay(myTransform.position, myTosser.newForth, new Color (0f, 0f, 1f));
 		myTosser.lookingTarget = true;
 			
         yield return new WaitForSeconds(Random.Range(0.0f,1.0f));

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class throwDetail{
@@ -50,7 +51,8 @@ public class Manager : MonoBehaviour {
 	public float fadeTime = 1.0f;
 	float startFade;
 	bool fadingout;
-	Image fadeTex;
+	Image fadeTex_right;
+	Image fadeTex_left;
 	Color fadeColor;
 
 	starterData starterData;
@@ -134,24 +136,34 @@ public class Manager : MonoBehaviour {
 		stepG = (nightColor.g - skyColor.g) / throwSequence.Count;
 		stepB = (nightColor.b - skyColor.b) / throwSequence.Count;
 		
-		fadeTex = GameObject.Find("GUI/fadeTexture").GetComponent<Image>();
+		fadeTex_right = GameObject.Find("GUI_right/fadeTexture").GetComponent<Image>();
+		fadeTex_left = GameObject.Find("GUI_left/fadeTexture").GetComponent<Image>();
 		fadeColor = new Color(0.0f, 0.0f, 0.0f, 1.0f);		
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if(Input.GetKey(KeyCode.R))
+			SceneManager.LoadScene("startScreen");
+			
+		if(Input.GetKey(KeyCode.Q))
+			Application.Quit();
+		
 		timer += Time.deltaTime;		
 		if(fadingout){
 			if(timer <= startFade + fadeTime){
 				fadeColor.a = (timer-startFade)/fadeTime;
-				fadeTex.color = fadeColor;
+				fadeTex_right.color = fadeColor;
+				fadeTex_left.color = fadeColor;
 				Debug.Log("fade alpha: "+fadeColor.a.ToString());
 			}
 			else{
 				fadeColor.a = 1.0f;
-				fadeTex.color = fadeColor;
+				fadeTex_right.color = fadeColor;
+				fadeTex_left.color = fadeColor;
 				fadingout = false;
-				Application.Quit();
+				
+				SceneManager.LoadScene("startScreen");
 			}
 		}
 		

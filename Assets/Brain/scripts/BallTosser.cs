@@ -109,14 +109,14 @@ public class BallTosser : MonoBehaviour {
         {
             if(isplayer)
             {
-                if(Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+                if(Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.Alpha2))
                 {
 					myBall.SetActive(false);
 					haveBall = false;
                     StartCoroutine(AnimateThrow(false));
 					saveFile.WriteToFile("Player to Remy");
                 }
-                if(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+                if(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1))
                 {
 					myBall.SetActive(false);
 					haveBall = false;

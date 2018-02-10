@@ -123,5 +123,6 @@ public class SaveToCSV : MonoBehaviour {
 		string timeStamp = System.DateTime.Now.ToShortDateString().Replace ("/", "_");
 		timeStamp += "_"+ System.DateTime.Now.ToShortTimeString().Replace(":","_").Replace(" ","_");
 		filePath = path + "SubjectID_" + subjectID + "_" + "RunNumber_" + runNumber + "_"+timeStamp + ".csv";
+		Debug.Log("<color=blue>logFile on: "+filePath+"</color>");
 	}
 }

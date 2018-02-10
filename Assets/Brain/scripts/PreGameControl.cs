@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityStandardAssets.CrossPlatformInput;
+
 
 public class PreGameControl : MonoBehaviour {
 	Transform myTransform;
@@ -55,6 +55,7 @@ public class PreGameControl : MonoBehaviour {
 	
 	Animator leftAnim;
 	
+	float horizontal;
 	float timer;
 	float fadeTime = 1.0f;
 	float startFade;
@@ -128,8 +129,14 @@ public class PreGameControl : MonoBehaviour {
 			}				
 		}
 		
-		if(lookLearned < lookLearnTreshold){
-			if(CrossPlatformInputManager.GetAxis("Horizontal") != 0)
+		horizontal = 0.0f;
+		if(Input.GetKey(KeyCode.Keypad1) || Input.GetKey(KeyCode.Alpha1) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+			horizontal = -1.0f;
+		if(Input.GetKey(KeyCode.Keypad2) || Input.GetKey(KeyCode.Alpha2) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+			horizontal = 1.0f;
+
+		if(lookLearned < lookLearnTreshold){			
+			if(horizontal != 0)
 				lookLearned++;
 		}
 		else{
@@ -139,10 +146,11 @@ public class PreGameControl : MonoBehaviour {
 			msgToLookShadUI_left.CrossFadeAlpha(0.0f, msgFadeTime, false);
 		}
 		if(wakingUp){
-			myTransform.Rotate(0f,CrossPlatformInputManager.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime, 0f);
+			myTransform.Rotate(0f,horizontal * rotateSpeed * Time.deltaTime, 0f);
 			//check if spot other players to activate them
 			if(invited2play){
-				if((Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D)) || (Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.RightArrow))){
+				if((Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D)) || (Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.RightArrow)) || 
+				(Input.GetKey(KeyCode.Keypad1) && Input.GetKey(KeyCode.Keypad2)) || (Input.GetKey(KeyCode.Alpha1) && Input.GetKey(KeyCode.Alpha2))){
 					wakingUp = false;
 					inPreGame = true;
 					
@@ -157,7 +165,7 @@ public class PreGameControl : MonoBehaviour {
 				}				
 			}
 			
-			if(Vector3.Angle(leftPlayer.position - myTransform.position, myTransform.forward) <= lookAngle){
+			if(Vector3.Angle(leftPlayer.position - myTransform.position, myTransform.forward) <= 1.5*lookAngle){
 				if(!invited2play){
 					invited2play = true;
 					
@@ -175,15 +183,16 @@ public class PreGameControl : MonoBehaviour {
 					msgToLookShadUI_left.CrossFadeAlpha(0.0f, msgFadeTime, false);
 				}
 			}
-			
+			/*
 			if(Input.GetKeyDown("space")){
 				if(!playersActive)
 					StartCoroutine(ActivatePlayers());
 			}
+			*/
 		}
 		else{
 			if(inPreGame){
-				myTransform.Rotate(0f,CrossPlatformInputManager.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime, 0f);
+				myTransform.Rotate(0f,horizontal * rotateSpeed * Time.deltaTime, 0f);
 				if(walking){
 					Vector3 cameraPos = CameraTransform.position;
 					cameraPos.y += Mathf.Sin(bobFreq*Time.time)*bobAmp;
@@ -194,7 +203,7 @@ public class PreGameControl : MonoBehaviour {
 					if(!playersActive)
 						StartCoroutine(ActivatePlayers());
 				}
-				*/				
+							
 				if(Input.GetKeyDown(KeyCode.S)){
 					navAgent.enabled = false;
 					myTransform.position = playerNavPoints[playerNavPoints.Length-1].position;
@@ -202,7 +211,8 @@ public class PreGameControl : MonoBehaviour {
 					walking = false;
 					if(!playersActive)
 						StartCoroutine(ActivatePlayers());
-				}				
+				}	
+				*/
 				
 				//update navPoint in case it is less than the max number (4)
 				//otherwise, activate players
