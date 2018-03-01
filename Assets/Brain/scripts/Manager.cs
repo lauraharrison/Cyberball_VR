@@ -56,9 +56,20 @@ public class Manager : MonoBehaviour {
 	Color fadeColor;
 
 	starterData starterData;
-					
+
 	void Awake() {
 		starterData = GetComponent<starterData>();
+		
+		//check if pseudoGame
+		if(starterData.pseudoGame){
+			readCSVsequence = false;
+			endAfterThrowSeq = false;			
+		}
+		else{
+			readCSVsequence = true;
+			endAfterThrowSeq = true;
+		}
+		
 		sequenceFilePath = starterData.sequenceFilePath + starterData.throwSequence;
 		Debug.Log("throwSequence path: "+sequenceFilePath);
 		leftTosser = leftPlayer.GetComponent<BallTosser> ();
@@ -142,9 +153,12 @@ public class Manager : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		if(Input.GetKey(KeyCode.R))
+	void Update(){
+		if(Input.GetKey(KeyCode.R)){
+			Cursor.lockState = CursorLockMode.None;
+			Cursor.visible = true;
 			SceneManager.LoadScene("startScreen");
+		}
 			
 		if(Input.GetKey(KeyCode.Q))
 			Application.Quit();
@@ -163,6 +177,8 @@ public class Manager : MonoBehaviour {
 				fadeTex_left.color = fadeColor;
 				fadingout = false;
 				
+				Cursor.lockState = CursorLockMode.None;
+				Cursor.visible = true;
 				SceneManager.LoadScene("startScreen");
 			}
 		}

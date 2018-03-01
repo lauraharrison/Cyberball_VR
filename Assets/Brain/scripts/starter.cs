@@ -16,9 +16,12 @@ public class starter : MonoBehaviour {
 
 	public InputField subjetIDin;
 	public InputField runNumin;
+	GameObject loadMsg;
 
 	// Use this for initialization
 	void Start(){
+		loadMsg = GameObject.Find("GUI/loadOverlay");
+		loadMsg.SetActive(false);
 		starterData.sequenceFilePath = Application.dataPath + "/" + throwSequencesLocation;
 		DirectoryInfo d = new DirectoryInfo(starterData.sequenceFilePath);
 		FileInfo[] Files = d.GetFiles(throwSequenceCoreName+"*.csv"); //Getting Text files
@@ -35,15 +38,27 @@ public class starter : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update (){
+	void Update(){
 		scene2LoadName = sceneNameDropdown.options[sceneNameDropdown.value].text;
 
 		if(Input.GetKeyDown(starterKey) || Input.GetKeyDown(KeyCode.Alpha5)){
-			StartGame();
-		}		
+			StartGame(true);
+		}
+		
+		if(Input.GetKeyDown(KeyCode.Keypad6) || Input.GetKeyDown(KeyCode.Alpha6)){
+			StartGame(false);
+		}
+		
+		if(Input.GetKey(KeyCode.Q))
+			Application.Quit();		
 	}
 
-	public void StartGame(){		
+	public void StartGame(bool trueGame){
+		//enabling or not the pseudoGame
+		starterData.pseudoGame = !trueGame;
+		
+		loadMsg.SetActive(true);
+		
 		starterData.throwSequence = throwSeqDropdown.options[throwSeqDropdown.value].text;
 
 		try{

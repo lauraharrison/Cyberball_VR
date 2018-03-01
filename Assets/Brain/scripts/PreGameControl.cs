@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 
 public class PreGameControl : MonoBehaviour {
 	Transform myTransform;
@@ -64,6 +64,8 @@ public class PreGameControl : MonoBehaviour {
 	Image fadeTex_left;
 	Color fadeColor;
 
+	starterData starterData;	
+		
 	// Use this for initialization
 	void Start () {
 		Cursor.visible = false;
@@ -76,6 +78,16 @@ public class PreGameControl : MonoBehaviour {
 
 		rightFriend = rightPlayer.GetComponent<friendControl>();
 		rightPlayerSound = rightPlayer.GetComponent<AudioSource>();
+		
+		starterData = GetComponent<starterData>();
+		if(starterData.pseudoGame){
+			GameObject.Find("GUI_right/label").SetActive(true);
+			GameObject.Find("GUI_left/label").SetActive(true);
+		}
+		else{
+			GameObject.Find("GUI_right/label").SetActive(false);
+			GameObject.Find("GUI_left/label").SetActive(false);
+		}
 		
 		msgToStartUI_right = GameObject.Find("GUI_right/msgToStart").GetComponent<Text>();
 		msgToStartUI_right.gameObject.SetActive(false);
@@ -113,6 +125,15 @@ public class PreGameControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if(Input.GetKey(KeyCode.R)){
+			Cursor.lockState = CursorLockMode.None;
+			Cursor.visible = true;
+			SceneManager.LoadScene("startScreen");
+		}
+			
+		if(Input.GetKey(KeyCode.Q))
+			Application.Quit();
+		
 		timer += Time.deltaTime;
 		if(fadingin){
 			if(timer <= startFade + fadeTime){

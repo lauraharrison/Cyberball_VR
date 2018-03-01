@@ -7,4 +7,5 @@ public class starterData : MonoBehaviour {
 	static public int runNumber = 0;
 	static public string throwSequence = "throwSequence.csv";
 	static public string sequenceFilePath = "Assets/StreamingAssets/";
+	static public bool pseudoGame = false;
 }
