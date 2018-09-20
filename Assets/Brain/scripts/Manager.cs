@@ -95,9 +95,9 @@ public class Manager : MonoBehaviour {
 				Debug.LogError ("Assign SaveToCSV script to SaveFile GameObject");
 			}
 		}
-
-		//read throwSequenceFile
-		if(readCSVsequence){
+        
+        //read throwSequenceFile
+        if (readCSVsequence){
 			throwSequence.Clear();
 			FileStream fileStream = File.Open(sequenceFilePath, FileMode.Open);
 			StreamReader sr = new StreamReader(fileStream);
@@ -149,8 +149,9 @@ public class Manager : MonoBehaviour {
 		
 		fadeTex_right = GameObject.Find("GUI_right/fadeTexture").GetComponent<Image>();
 		fadeTex_left = GameObject.Find("GUI_left/fadeTexture").GetComponent<Image>();
-		fadeColor = new Color(0.0f, 0.0f, 0.0f, 1.0f);		
-	}
+		fadeColor = new Color(0.0f, 0.0f, 0.0f, 1.0f);
+        saveFile.startFile();
+    }
 	
 	// Update is called once per frame
 	void Update(){

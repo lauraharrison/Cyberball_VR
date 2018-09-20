@@ -17,9 +17,10 @@ public class starter : MonoBehaviour {
 	public InputField subjetIDin;
 	public InputField runNumin;
 	GameObject loadMsg;
-
-	// Use this for initialization
-	void Start(){
+    SaveToCSV saveFile;
+    
+    // Use this for initialization
+    void Start(){
 		loadMsg = GameObject.Find("GUI/loadOverlay");
 		loadMsg.SetActive(false);
 		starterData.sequenceFilePath = Application.dataPath + "/" + throwSequencesLocation;
@@ -35,14 +36,28 @@ public class starter : MonoBehaviour {
 			throwSeqDropdown.options.Add(newOption);
 		}
 		throwSeqDropdown.RefreshShownValue();
-	}
+
+        GameObject saveFileGameObject = GameObject.FindGameObjectWithTag("SaveFile");
+        if (saveFileGameObject == null)
+        {
+            Debug.LogError("GameObject with SaveToCSV scripts needs to be tagged with SaveFile tag");
+        }
+        else
+        {
+            saveFile = saveFileGameObject.GetComponent<SaveToCSV>();
+            if (saveFile == null)
+            {
+                Debug.LogError("Assign SaveToCSV script to SaveFile GameObject");
+            }
+        }
+    }
 	
 	// Update is called once per frame
 	void Update(){
 		scene2LoadName = sceneNameDropdown.options[sceneNameDropdown.value].text;
 
-		if(Input.GetKeyDown(starterKey) || Input.GetKeyDown(KeyCode.Alpha5)){
-			StartGame(true);
+		if(Input.GetKeyDown(starterKey) || Input.GetKeyDown(KeyCode.Alpha5)){            
+            StartGame(true);
 		}
 		
 		if(Input.GetKeyDown(KeyCode.Keypad6) || Input.GetKeyDown(KeyCode.Alpha6)){
@@ -80,6 +95,9 @@ public class starter : MonoBehaviour {
 		Debug.Log("data SubjectID: "+starterData.SubjectID.ToString());
 		Debug.Log("data Run number ID: "+starterData.runNumber.ToString());
 
-		SceneManager.LoadScene(scene2LoadName);
+        saveFile.startFile();
+        saveFile.WriteToFile("5 was pressed.");
+
+        SceneManager.LoadScene(scene2LoadName);
 	}
 }
