@@ -2289,6 +2289,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!33 &33574902681068698
 MeshFilter:
@@ -2419,6 +2420,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playingLocation: {fileID: 0}
   closeDist: 0.5
+  leftPos: {fileID: 0}
+  rightPos: {fileID: 0}
 --- !u!114 &114751298514254916
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2432,6 +2435,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetLeft: {fileID: 0}
   targetRight: {fileID: 0}
+  throwTargetLeft: {fileID: 0}
+  throwTargetRight: {fileID: 0}
   rightHandLoc: {fileID: 4865119923122276}
   leftHandLoc: {fileID: 4865119923122276}
   ballPrefab: {fileID: 1561806879950692, guid: 92a6b869c32e160499b8be981ec5f247, type: 2}
@@ -2443,6 +2448,7 @@ MonoBehaviour:
   throwTime: 2.35
   catchTime: 1.5
   prepareTime: 0.1
+  prepareTimePlayer: 0.8
   smoothRot: 0.2
   newForth: {x: 0, y: 0, z: 0}
   lookingTarget: 0
@@ -2453,6 +2459,12 @@ MonoBehaviour:
   lookTo: {fileID: 0}
   lookSpeed: 5
   offsetY: 0
+  idleFloat: 0
+  idleFloatSpeed: 10
+  ballUI_right: {fileID: 0}
+  ballUI_left: {fileID: 0}
+  ballImage: {fileID: 0}
+  ballGhostImage: {fileID: 0}
 --- !u!137 &137145582303234220
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -2483,6 +2495,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
@@ -2534,6 +2547,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
@@ -2585,6 +2599,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
@@ -2631,6 +2646,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
@@ -2689,6 +2705,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
@@ -2735,6 +2752,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
@@ -2779,6 +2797,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
@@ -2863,6 +2882,7 @@ NavMeshAgent:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1888349857612970}
   m_Enabled: 1
+  m_AgentTypeID: 0
   m_Radius: 0.44
   m_Speed: 3.5
   m_Acceleration: 8
@@ -2873,6 +2893,6 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 3.74
-  m_BaseOffset: 0
+  m_BaseOffset: -0.07
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4

@@ -30,7 +30,7 @@ public class Manager : MonoBehaviour {
 
 	SaveToCSV saveFile;
 	public string sequenceFilePath = @"LogFiles/throwSequence.csv";
-	public bool readCSVsequence;
+	bool readCSVsequence;
 	
 	Color horizonColor;
 	Color skyColor;
@@ -46,7 +46,7 @@ public class Manager : MonoBehaviour {
 	float stepG;
 	float stepB;
 	
-	public bool endAfterThrowSeq;
+	bool endAfterThrowSeq;
 	float timer;
 	public float fadeTime = 1.0f;
 	float startFade;
@@ -276,7 +276,8 @@ public class Manager : MonoBehaviour {
 		yield return new WaitForSeconds(throwSequence[throwIndex].waitTime);
 		
 		if(throwIndex==0){
-			GetComponent<PreGameControl>().CalculateMiddlePoint();
+			//GetComponent<PreGameControl>().CalculateMiddlePoint();
+			Debug.Log("<color=blue>Manager started!</color>");
 		}
 		else{
 			ThrowBall();

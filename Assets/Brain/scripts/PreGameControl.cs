@@ -17,6 +17,8 @@ public class PreGameControl : MonoBehaviour {
 	public bool inPreGame = true;
 	public bool wakingUp = true;
 	bool invited2play;
+	bool charactersReady;
+	bool busy;
 	
 	bool watchingToStart;
 	AudioSource leftPlayerSound;
@@ -169,7 +171,7 @@ public class PreGameControl : MonoBehaviour {
 		if(wakingUp){
 			myTransform.Rotate(0f,horizontal * rotateSpeed * Time.deltaTime, 0f);
 			//check if spot other players to activate them
-			if(invited2play){
+			if(invited2play && !busy){
 				if((Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D)) || (Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.RightArrow)) || 
 				(Input.GetKey(KeyCode.Keypad1) && Input.GetKey(KeyCode.Keypad2)) || (Input.GetKey(KeyCode.Alpha1) && Input.GetKey(KeyCode.Alpha2))){
 					wakingUp = false;
@@ -186,8 +188,9 @@ public class PreGameControl : MonoBehaviour {
 				}				
 			}
 			
-			if(Vector3.Angle(leftPlayer.position - myTransform.position, myTransform.forward) <= 1.5*lookAngle){
+			if(Vector3.Angle(Vector3.ProjectOnPlane(leftPlayer.position - myTransform.position, Vector3.up), myTransform.forward) <= 1.5*lookAngle){
 				if(!invited2play){
+					busy = true;
 					invited2play = true;
 					
 					//greet player inviting him to play
@@ -256,7 +259,7 @@ public class PreGameControl : MonoBehaviour {
 					}
 				}		
 			
-				if(watchingToStart){
+				if(watchingToStart && charactersReady){
 					Debug.DrawRay(myTransform.position, middleTargetDir, Color.black, 100f);
 					Debug.DrawRay(myTransform.position, myTransform.forward, Color.red, 100f);
 					//check if player is looking to both the other players
@@ -284,6 +287,10 @@ public class PreGameControl : MonoBehaviour {
 
 		yield return new WaitForSeconds(startupTime);
 		leftPlayerSound.PlayOneShot(greeting2);
+		
+		yield return new WaitForSeconds(startupTime);
+		charactersReady = true;
+		CalculateMiddlePoint();
 	}
 	
 	IEnumerator Startup(){
@@ -298,10 +305,12 @@ public class PreGameControl : MonoBehaviour {
 		leftPlayerSound.PlayOneShot(greeting1);
 		yield return new WaitForSeconds(1.0f);
 		leftAnim.SetBool("bored", false);
+		yield return new WaitForSeconds(1.0f);
+		busy = false;
 	}
 
-	public void CalculateMiddlePoint(){
-		middleTargetDir = leftPlayer.position - myTransform.position + (rightPlayer.position - leftPlayer.position)/2f;
+	void CalculateMiddlePoint(){
+		middleTargetDir = Vector3.ProjectOnPlane(leftPlayer.position - myTransform.position + (rightPlayer.position - leftPlayer.position)/2f, Vector3.up);
 		watchingToStart = true;
 		msgToStartUI_right.gameObject.SetActive(true);
 		msgToStartUI_left.gameObject.SetActive(true);

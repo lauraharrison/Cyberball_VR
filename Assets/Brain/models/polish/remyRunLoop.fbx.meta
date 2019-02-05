@@ -1,7 +1,7 @@
 fileFormatVersion: 2
-guid: 42ee9d96e25c420499c62c59bdd30792
-timeCreated: 1494445280
-licenseType: Pro
+guid: 8f87423626714c340b4ab6eae3cbde8c
+timeCreated: 1548309953
+licenseType: Free
 ModelImporter:
   serializedVersion: 21
   fileIDToRecycleName:
@@ -72,7 +72,8 @@ ModelImporter:
     100128: mixamorig:Spine
     100130: mixamorig:Spine1
     100132: mixamorig:Spine2
-    100134: //RootNode
+    100134: newRoot
+    100136: //RootNode
     400000: mixamorig:Head
     400002: mixamorig:HeadTop_End
     400004: mixamorig:Hips
@@ -140,8 +141,9 @@ ModelImporter:
     400128: mixamorig:Spine
     400130: mixamorig:Spine1
     400132: mixamorig:Spine2
-    400134: //RootNode
-    7400000: Take 001
+    400134: newRoot
+    400136: //RootNode
+    7400000: remyRun
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -150,7 +152,7 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleCurves: 1
+    resampleCurves: 0
     optimizeGameObjects: 0
     motionNodeName: 
     rigImportErrors: 
@@ -168,17 +170,17 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Take 001
+      name: remyRun
       takeName: Take 001
-      firstFrame: 60
-      lastFrame: 165
+      firstFrame: 1
+      lastFrame: 17
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -190,14 +192,7 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events:
-      - time: 0.5387464
-        functionName: ThrowBallInstant
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
+      events: []
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -208,10 +203,10 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
-    importVisibility: 0
+    importVisibility: 1
     importBlendShapes: 1
-    importCameras: 0
-    importLights: 0
+    importCameras: 1
+    importLights: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
@@ -227,7 +222,7 @@ ModelImporter:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
-    normalCalculationMode: 0
+    normalCalculationMode: 4
   importAnimation: 1
   copyAvatar: 0
   humanDescription:

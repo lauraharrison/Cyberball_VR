@@ -1,7 +1,7 @@
 fileFormatVersion: 2
-guid: 42ee9d96e25c420499c62c59bdd30792
-timeCreated: 1494445280
-licenseType: Pro
+guid: 2613a31a0f9b25c47af9ff4154217237
+timeCreated: 1548314758
+licenseType: Free
 ModelImporter:
   serializedVersion: 21
   fileIDToRecycleName:
@@ -72,7 +72,8 @@ ModelImporter:
     100128: mixamorig:Spine
     100130: mixamorig:Spine1
     100132: mixamorig:Spine2
-    100134: //RootNode
+    100134: newRoot
+    100136: //RootNode
     400000: mixamorig:Head
     400002: mixamorig:HeadTop_End
     400004: mixamorig:Hips
@@ -140,8 +141,9 @@ ModelImporter:
     400128: mixamorig:Spine
     400130: mixamorig:Spine1
     400132: mixamorig:Spine2
-    400134: //RootNode
-    7400000: Take 001
+    400134: newRoot
+    400136: //RootNode
+    7400000: remyThrowL
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -168,10 +170,10 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Take 001
+      name: remyThrowL
       takeName: Take 001
       firstFrame: 60
-      lastFrame: 165
+      lastFrame: 155
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -191,7 +193,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.5387464
+      - time: 0.60384613
         functionName: ThrowBallInstant
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -208,10 +210,10 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
-    importVisibility: 0
+    importVisibility: 1
     importBlendShapes: 1
-    importCameras: 0
-    importLights: 0
+    importCameras: 1
+    importLights: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
@@ -227,7 +229,7 @@ ModelImporter:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
-    normalCalculationMode: 0
+    normalCalculationMode: 4
   importAnimation: 1
   copyAvatar: 0
   humanDescription:

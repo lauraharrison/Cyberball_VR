@@ -19,6 +19,7 @@ public class BallTosser : MonoBehaviour {
     public float tossSpeedx = 4f;
     float tossSpeedy = 5f;
     public bool haveBall=false;
+	bool throwSide;
 
     public GameObject myBall;
     public bool isplayer;
@@ -50,12 +51,19 @@ public class BallTosser : MonoBehaviour {
 	public Texture ballImage;
 	public Texture ballGhostImage;
 	
+	public Transform smoothLookTarget;
+	bool smoothLookTargeted = true;
+	Vector3 smoothLookPos;
+	public float smoothLookSpeed = 10.0f;
+	public float smoothTreshold = 5.0f;
+	
 	
 	SaveToCSV saveFile;
     
     // Use this for initialization
     void Start () {
 		myTransform = transform;
+		smoothLookPos = new Vector3();
 		
 		leftTosser = targetLeft.GetComponent<BallTosser>();
 		rightTosser = targetRight.GetComponent<BallTosser>();
@@ -104,6 +112,15 @@ public class BallTosser : MonoBehaviour {
 				}
 			}
 		}
+		else{
+			if(!smoothLookTargeted){
+				smoothLookPos += (lookTo.position - smoothLookPos).normalized*smoothLookSpeed*Time.deltaTime;
+				smoothLookTarget.position = smoothLookPos;
+				if(Vector3.Distance(smoothLookPos,lookTo.position) < smoothTreshold){
+					smoothLookTargeted = true;
+				}
+			}			
+		}
 		
         if (haveBall)
         {
@@ -131,6 +148,7 @@ public class BallTosser : MonoBehaviour {
 		if(lookingTarget && !isplayer){
 			myTransform.forward = Vector3.Lerp (myTransform.forward, newForth, smoothRot*Time.deltaTime);			
 		}
+		/*
 		if(!isplayer){
 			float idlecurr = myAnim.GetFloat("idle");
 			if(idlecurr != idleFloat){
@@ -140,21 +158,29 @@ public class BallTosser : MonoBehaviour {
 				myAnim.SetFloat("idle",idlecurr);
 			}			
 		}
+		*/
 	}
 	
 	void LateUpdate(){
-		if(lookingTarget && !isplayer && lookTo){
-			Quaternion targetRotation = Quaternion.LookRotation(lookTo.position - headTransform.position);
-			// Smoothly rotate towards the target point.
-			//headTransform.rotation = Quaternion.Slerp(headTransform.rotation, targetRotation, lookSpeed * Time.deltaTime);
-			//headTransform.LookAt(lookTo);
+		if(!isplayer && lookTo){
+			if(smoothLookTargeted){
+				Quaternion targetRotation = Quaternion.LookRotation(lookTo.position - headTransform.position);
+				// Smoothly rotate towards the target point.
+				headTransform.rotation = Quaternion.Slerp(headTransform.rotation, targetRotation, lookSpeed * Time.deltaTime);	
+			}
+			else{
+				Quaternion targetRotation = Quaternion.LookRotation(smoothLookTarget.position - headTransform.position);
+				// Smoothly rotate towards the target point.
+				headTransform.rotation = Quaternion.Slerp(headTransform.rotation, targetRotation, lookSpeed * Time.deltaTime);
+			}			
 		}
 	}
 
 	public IEnumerator ThrowBall(Transform gazeTarget, bool throwLeft, bool gaze, float gazeTime) {
         haveBall = false;
 		
-		if(gaze){			
+		if(gaze){	
+			UpdateLookTo(gazeTarget);
 			//newForth = gazeTarget.position - myTransform.position;
 			if(throwLeft){
 				myAnim.SetInteger("gazeValue",1);
@@ -215,16 +241,19 @@ public class BallTosser : MonoBehaviour {
             newForth = targetLeft.position - myTransform.position;
 			myAnim.SetInteger("throwValue",-1);
 			rightTosser.idleFloat = 1.0f;
+			UpdateLookTo(targetLeft);
 		}
 		else{
 			newForth = targetRight.position - myTransform.position;
 			myAnim.SetInteger("throwValue",1);
 			leftTosser.idleFloat = -1.0f;
+			UpdateLookTo(targetRight);
 		}
 		//lookingTarget = true;		
+		throwSide = left;
 		
 		yield return new WaitForSeconds(throwTime);
-		ThrowBallNow(left);
+		//ThrowBallNow(left);
 		myAnim.SetInteger("throwValue",0);
 		
 		if(left)
@@ -233,18 +262,20 @@ public class BallTosser : MonoBehaviour {
 			myAnim.SetFloat("idle",1.0f);
 		
 	}
-    void ThrowBallNow(bool left) {
+    public void ThrowBallNow() {
         Vector3 origin;
         Transform target;
 		Vector3 throwpos;
-        if (left)
+        if (throwSide)
         {
             origin = leftHandLoc.position;
-            target = targetLeft;
+            
 			if(throwTargetLeft)
-				throwpos = throwTargetLeft.position;
+				target = throwTargetLeft;
 			else
-				throwpos = target.position;
+				target = targetLeft;
+			
+			throwpos = target.position;
 			//make right player look to left player
 			rightTosser.newForth = targetLeft.position - targetRight.position;
 			//rightTosser.lookingTarget = true;
@@ -252,35 +283,41 @@ public class BallTosser : MonoBehaviour {
         else
         {
             origin = rightHandLoc.position;
-            target = targetRight;
+            
 			if(throwTargetRight)
-				throwpos = throwTargetRight.position;
+				target = throwTargetRight;
 			else
-				throwpos = target.position;
+				target = targetRight;
+				
+			throwpos = target.position;
 			leftTosser.newForth = targetRight.position - targetLeft.position;
 			//leftTosser.lookingTarget = true;
         }
 
         GameObject ball = (GameObject)GameObject.Instantiate(ballPrefab, origin, Quaternion.identity);
-				
+		//paused=true;
+		//Time.timeScale = 0f;
+					
         Transform ballTrans = ball.transform;
         ballTrans.LookAt(target);
 		
-		if (left)
+		if (throwSide)
         {
-			rightTosser.lookTo = ballTrans;
+			rightTosser.UpdateLookTo(ballTrans);
+			leftTosser.prepareToTakeBall(isplayer,throwSide);
 		}
 		else{
-			leftTosser.lookTo = ballTrans;
+			leftTosser.UpdateLookTo(ballTrans);
+			rightTosser.prepareToTakeBall(isplayer,throwSide);
 		}
-
+		
         //calculating trajectory
         float gravityAcel = Physics.gravity.y;
         tossSpeedy = (-1*(1-offsetY)) * gravityAcel * (Vector3.Distance(throwpos,origin)) / (2 * tossSpeedx);
         ball.GetComponent<Rigidbody>().velocity = ballTrans.forward * tossSpeedx + ballTrans.up * tossSpeedy;
         
 		//float impactTime = Vector3.Distance(target.position,origin)/tossSpeedx;
-		target.GetComponent<BallTosser>().prepareToTakeBall(isplayer,left);
+		
 		//Debug.DrawRay(ballTrans.position, target.position - ballTrans.position, new Color (1f, 1f, 0f));
 		//Time.timeScale = 0;
 		
@@ -342,6 +379,20 @@ public class BallTosser : MonoBehaviour {
 		myAnim.SetInteger("catchValue",0);
 		myAnim.SetFloat("idle",0f);
     }
+	public void UpdateLookTo(Transform newLookTo){
+		if(!isplayer){
+			if(lookTo){
+				smoothLookPos = lookTo.position;
+				smoothLookTarget.position = smoothLookPos;
+			}
+			else{
+				smoothLookPos = myTransform.position + myTransform.forward * 100.0f;
+				smoothLookTarget.position = smoothLookPos;			
+			}
+		}
+		smoothLookTargeted = false;
+		lookTo = newLookTo;		
+	}
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "cyberball")
@@ -356,7 +407,13 @@ public class BallTosser : MonoBehaviour {
 				myBall.SetActive(true);
 			//}
 			haveBall = true;
-        }
+			
+			//make other players look to me
+			rightTosser.UpdateLookTo(myTransform);
+			leftTosser.UpdateLookTo(myTransform);
+			//look forward in case you are the player
+        }		
+		
         Debug.Log(gameObject.name + " was triggered by "+other.gameObject.name);
     }
     void OnCollisionEnter(Collision other)
