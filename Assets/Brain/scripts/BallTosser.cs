@@ -56,6 +56,11 @@ public class BallTosser : MonoBehaviour {
 	Vector3 smoothLookPos;
 	public float smoothLookSpeed = 10.0f;
 	public float smoothTreshold = 5.0f;
+	Vector3 ballPosTarget;
+	Vector3 ballPos;
+	public float ballPosSpan = 0.1f;
+	public float handBallSpeed = 10f;
+	public float riseBallcueDelay=0.5f;
 	
 	
 	SaveToCSV saveFile;
@@ -84,6 +89,7 @@ public class BallTosser : MonoBehaviour {
 		
         if(!isplayer){
 			myAnim = GetComponent<Animator>();
+			myBall.SetActive(haveBall);
 		}
         else{
 			myAnim = GameObject.Find(gameObject.name+"/meshPlayer").GetComponent<Animator>();
@@ -92,15 +98,20 @@ public class BallTosser : MonoBehaviour {
 			ballUI_left = GameObject.Find("GUI_left/tenisBallUI").GetComponent<RawImage>();
 			ballUI_left.gameObject.SetActive(false);
             //StartCoroutine(GetReady2Play());
-		}
-		
-		myBall.SetActive(haveBall);
+			ballPos = myBall.transform.localPosition;
+			ballPosTarget = ballPos;
+		}		
     }
 	
 	// Update is called once per frame
 	void Update () {
 		if(isplayer)
 		{
+			
+			//update player ball pos
+			ballPos = Vector3.Lerp(ballPos, ballPosTarget, handBallSpeed*Time.deltaTime);
+			myBall.transform.localPosition = ballPos;
+			
 			if(Input.GetKeyDown("escape")){
 				if(paused){
 					paused=false;
@@ -128,14 +139,16 @@ public class BallTosser : MonoBehaviour {
             {
                 if(Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.Alpha2))
                 {
-					myBall.SetActive(false);
+					ballPosTarget = ballPos - Vector3.up*ballPosSpan;
+					//myBall.SetActive(false);
 					haveBall = false;
                     StartCoroutine(AnimateThrow(false));
 					saveFile.WriteToFile("Player to Remy");
                 }
                 if(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1))
                 {
-					myBall.SetActive(false);
+					ballPosTarget = ballPos - Vector3.up*ballPosSpan;
+					//myBall.SetActive(false);
 					haveBall = false;
                     StartCoroutine(AnimateThrow(true));
 					saveFile.WriteToFile("Player to Stefani");
@@ -322,10 +335,12 @@ public class BallTosser : MonoBehaviour {
 		//Time.timeScale = 0;
 		
 		haveBall = false;
-        myBall.SetActive(false);
-		if(isplayer){
+        if(isplayer){
 			ballUI_right.texture = ballGhostImage;
 			ballUI_left.texture = ballGhostImage;
+		}
+		else{
+			myBall.SetActive(false);	
 		}
 		lookingTarget = false;
 
@@ -335,10 +350,14 @@ public class BallTosser : MonoBehaviour {
     IEnumerator RecuperateBall() {
         yield return new WaitForSeconds(0.8f);
         haveBall = true;		
-        myBall.SetActive(true);
+        
 		if(isplayer){
 			ballUI_right.texture = ballImage;
 			ballUI_left.texture = ballImage;
+			ballPosTarget = ballPos + Vector3.up*ballPosSpan;
+		}
+		else{
+				myBall.SetActive(true);
 		}
     }
     IEnumerator GetReady2Play()
@@ -393,6 +412,10 @@ public class BallTosser : MonoBehaviour {
 		smoothLookTargeted = false;
 		lookTo = newLookTo;		
 	}
+	IEnumerator RaiseBallcue(){
+		yield return new WaitForSeconds(riseBallcueDelay);
+		ballPosTarget = ballPos + Vector3.up*ballPosSpan;
+	}
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "cyberball")
@@ -402,10 +425,11 @@ public class BallTosser : MonoBehaviour {
 			if(isplayer){
 				ballUI_right.texture = ballImage;
 				ballUI_left.texture = ballImage;
+				StartCoroutine(RaiseBallcue());
 			}
-			//else{
+			else{
 				myBall.SetActive(true);
-			//}
+			}
 			haveBall = true;
 			
 			//make other players look to me

@@ -107,7 +107,7 @@ NavMeshSettings:
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
-  m_NavMeshData: {fileID: 23800000, guid: ae79a8b6d32ea0748b4d83871a246de1, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 3effbccc5d1960140812e9cda3290038, type: 2}
 --- !u!1 &3556883
 GameObject:
   m_ObjectHideFlags: 0
@@ -3137,6 +3137,26 @@ Prefab:
       propertyPath: InitialModule.startColor.maxColor.rgba
       value: 1358953419
       objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startSizeY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startSizeZ.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startRotationX.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startRotationY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: randomSeed
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
   m_IsPrefabParent: 0
@@ -4415,7 +4435,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
       propertyPath: ShapeModule.radius
-      value: 17.106152
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 177380, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
       propertyPath: m_Name
@@ -4428,6 +4448,26 @@ Prefab:
     - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
       propertyPath: VelocityModule.y.scalar
       value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startSizeY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startSizeZ.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startRotationX.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startRotationY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: randomSeed
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
@@ -5748,23 +5788,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7440f41534ec1da4eb70e7cff1d75633, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &355676859 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1875543443171232, guid: 7a748481462eca645b1063432cba4d61,
-    type: 2}
-  m_PrefabInternal: {fileID: 1526023609}
---- !u!114 &355676860
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 355676859}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a36bbc1cb8a1d24ba6a3b01aff63ea0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myBallTosser: {fileID: 1766009805}
 --- !u!4 &359019176 stripped
 Transform:
   m_PrefabParentObject: {fileID: 459184, guid: 2d32e38409a4ae94f8ff848cc7f7b900, type: 2}
@@ -6451,6 +6474,11 @@ Prefab:
         type: 2}
       propertyPath: prepareTimePlayer
       value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 195782407525336188, guid: e1933dad761c7ff4ea9dff181c873eed,
+        type: 2}
+      propertyPath: m_BaseOffset
+      value: -0.005
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e1933dad761c7ff4ea9dff181c873eed, type: 2}
@@ -8027,7 +8055,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
       propertyPath: ShapeModule.radius
-      value: 10.024304
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 177380, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
       propertyPath: m_Name
@@ -8040,6 +8068,26 @@ Prefab:
     - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
       propertyPath: VelocityModule.y.scalar
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: randomSeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startSizeY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startSizeZ.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startRotationX.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startRotationY.minMaxState
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
@@ -11854,7 +11902,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
       propertyPath: ShapeModule.radius
-      value: 10.024304
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 177380, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
       propertyPath: m_Name
@@ -11867,6 +11915,26 @@ Prefab:
     - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
       propertyPath: VelocityModule.y.scalar
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startSizeY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startSizeZ.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startRotationX.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startRotationY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: randomSeed
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
@@ -12044,7 +12112,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 192660, guid: e7c4dd465e1d3c641b52ebf5c55fcf3a, type: 2}
       propertyPath: m_StaticEditorFlags
-      value: 4294967295
+      value: 4294967263
       objectReference: {fileID: 0}
     - target: {fileID: 192660, guid: e7c4dd465e1d3c641b52ebf5c55fcf3a, type: 2}
       propertyPath: m_Layer
@@ -15394,11 +15462,31 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
       propertyPath: ShapeModule.radius
-      value: 17.106152
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 177380, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
       propertyPath: m_Name
       value: WaterRipple_FX (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: randomSeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startSizeY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startSizeZ.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startRotationX.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startRotationY.minMaxState
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
@@ -21086,11 +21174,31 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
       propertyPath: ShapeModule.radius
-      value: 17.106152
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 177380, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
       propertyPath: m_Name
       value: WaterRipple_FX (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: randomSeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startSizeY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startSizeZ.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startRotationX.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startRotationY.minMaxState
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
@@ -25219,7 +25327,27 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
       propertyPath: ShapeModule.radius
-      value: 4.453239
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startSizeY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startSizeZ.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startRotationX.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startRotationY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: randomSeed
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
@@ -27789,12 +27917,6 @@ ReflectionProbe:
   m_UseOcclusionCulling: 1
   m_Importance: 1
   m_CustomBakedTexture: {fileID: 0}
---- !u!114 &1766009805 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114603264068927022, guid: 7a748481462eca645b1063432cba4d61,
-    type: 2}
-  m_PrefabInternal: {fileID: 1526023609}
-  m_Script: {fileID: 11500000, guid: a5a67c5860c7f784fb8781dc0228617e, type: 3}
 --- !u!4 &1769048426 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 8e41f14c6552d48e6a7992aaecc808e4, type: 3}
@@ -28738,6 +28860,11 @@ Prefab:
         type: 2}
       propertyPath: prepareTimePlayer
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 195331502623276436, guid: c55e555779e408d43add06e13ddc60e5,
+        type: 2}
+      propertyPath: m_BaseOffset
+      value: -0.004
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c55e555779e408d43add06e13ddc60e5, type: 2}
@@ -29708,7 +29835,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
       propertyPath: ShapeModule.radius
-      value: 17.106152
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 177380, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
       propertyPath: m_Name
@@ -29721,6 +29848,26 @@ Prefab:
     - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
       propertyPath: VelocityModule.y.scalar
       value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: randomSeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startSizeY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startSizeZ.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startRotationX.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startRotationY.minMaxState
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
@@ -30195,7 +30342,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
       propertyPath: ShapeModule.radius
-      value: 10.024304
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 177380, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
       propertyPath: m_Name
@@ -30208,6 +30355,26 @@ Prefab:
     - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
       propertyPath: VelocityModule.y.scalar
       value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: randomSeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startSizeY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startSizeZ.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startRotationX.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startRotationY.minMaxState
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
@@ -31340,7 +31507,31 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
       propertyPath: ShapeModule.radius
-      value: 3.2244773
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startSizeY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startSizeZ.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startRotationX.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startRotationY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: randomSeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: ShapeModule.radius.value
+      value: 4.69
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
@@ -31604,7 +31795,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
       propertyPath: ShapeModule.radius
-      value: 12.463005
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 177380, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
       propertyPath: m_Name
@@ -31617,6 +31808,26 @@ Prefab:
     - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
       propertyPath: VelocityModule.y.scalar
       value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: randomSeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startSizeY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startSizeZ.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startRotationX.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19861104, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}
+      propertyPath: InitialModule.startRotationY.minMaxState
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 199ec0e1e3b5e994db6153c93ee4bd79, type: 2}

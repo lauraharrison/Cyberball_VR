@@ -1217,6 +1217,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4988257055419816}
   - component: {fileID: 95245711552190950}
+  - component: {fileID: 114256282679118406}
   m_Layer: 0
   m_Name: meshPlayer
   m_TagString: Untagged
@@ -1365,7 +1366,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013789386414}
   m_LocalRotation: {x: -0, y: 0.02066228, z: -0, w: 0.9997865}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4000011739964280}
@@ -1435,8 +1436,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012457019574}
-  m_LocalRotation: {x: -0, y: 0.9995199, z: -0, w: -0.030983757}
-  m_LocalPosition: {x: 113.77, y: 10.986, z: 199.54}
+  m_LocalRotation: {x: -0, y: 0.45267406, z: -0, w: 0.89167607}
+  m_LocalPosition: {x: 166.66, y: 13.869, z: 52.75}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4000011351865966}
@@ -2425,7 +2426,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1743518400184612}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: -0.00000016292068}
-  m_LocalPosition: {x: 0.0164, y: -0.2451, z: 0.42}
+  m_LocalPosition: {x: 0.0164, y: -0.33, z: 0.42}
   m_LocalScale: {x: 0.04981978, y: 0.04981978, z: 0.04981978}
   m_Children: []
   m_Father: {fileID: 4000011351865966}
@@ -2533,7 +2534,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1875543443171232}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.16629538, y: -0.49799985, z: -0.05217489}
+  m_LocalPosition: {x: 0.01, y: -0.49799985, z: -0.05}
   m_LocalScale: {x: 0.5000001, y: 0.5, z: 0.5000001}
   m_Children:
   - {fileID: 4790514503803956}
@@ -3018,413 +3019,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   throwSequence:
   - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
-  - throwToPlayer: 1
-    waitTime: 5
-    gazeToOther: 1
-    gazeTime: 3
+    waitTime: 0
+    gazeToOther: 0
+    gazeTime: 0
   skyDome: {fileID: 0}
   leftPlayer: {fileID: 0}
   rightPlayer: {fileID: 0}
   sequenceFilePath: LogFiles/throwSequence.csv
-  readCSVsequence: 0
   nightFallSpeed: 0.1
   doNightFall: 0
-  endAfterThrowSeq: 1
   fadeTime: 3
 --- !u!114 &114069530080696088
 MonoBehaviour:
@@ -3471,6 +3074,18 @@ MonoBehaviour:
   heightDensity: 2
   startDistance: 0
   fogShader: {fileID: 4800000, guid: 70d8568987ac0499f952b54c7c13e265, type: 3}
+--- !u!114 &114256282679118406
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1875543443171232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a36bbc1cb8a1d24ba6a3b01aff63ea0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myBallTosser: {fileID: 114603264068927022}
 --- !u!114 &114376670158920902
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3546,15 +3161,15 @@ MonoBehaviour:
   targetRight: {fileID: 0}
   throwTargetLeft: {fileID: 0}
   throwTargetRight: {fileID: 0}
-  rightHandLoc: {fileID: 4000011739964280}
-  leftHandLoc: {fileID: 4000011739964280}
+  rightHandLoc: {fileID: 4641907928461048}
+  leftHandLoc: {fileID: 4641907928461048}
   ballPrefab: {fileID: 1561806879950692, guid: 92a6b869c32e160499b8be981ec5f247, type: 2}
   tossSpeedx: 4
   haveBall: 0
   myBall: {fileID: 1743518400184612}
   isplayer: 1
   includePlayerPercentage: 0.5
-  throwTime: 0.8
+  throwTime: 2.4
   catchTime: 0.8
   prepareTime: 0.8
   prepareTimePlayer: 0.8
@@ -3570,9 +3185,16 @@ MonoBehaviour:
   offsetY: 0.15
   idleFloat: 0
   idleFloatSpeed: 10
-  ballUI: {fileID: 0}
+  ballUI_right: {fileID: 0}
+  ballUI_left: {fileID: 0}
   ballImage: {fileID: 2800000, guid: b4cbd75db77f14b42971e27f58bbe58c, type: 3}
   ballGhostImage: {fileID: 2800000, guid: f3cbf310888e7784fa57a12def8425a0, type: 3}
+  smoothLookTarget: {fileID: 0}
+  smoothLookSpeed: 10
+  smoothTreshold: 5
+  ballPosSpan: 0.1
+  handBallSpeed: 10
+  riseBallcueDelay: 0.5
 --- !u!114 &114624402700857966
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3590,7 +3212,7 @@ MonoBehaviour:
   startupTime: 4.5
   inPreGame: 0
   wakingUp: 1
-  lookAngle: 6
+  lookAngle: 1
   playerNavPoints:
   - {fileID: 0}
   greeting1: {fileID: 8300000, guid: c216ae2d579c0c647825f8870624c2a8, type: 3}
