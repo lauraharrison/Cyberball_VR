@@ -61,6 +61,9 @@ public class BallTosser : MonoBehaviour {
 	public float ballPosSpan = 0.1f;
 	public float handBallSpeed = 10f;
 	public float riseBallcueDelay=0.5f;
+	public BoxCollider myCollider;
+	float adjustStefCollider = 0.03f;
+	float adjustRemyCollider = 0.09f;
 	
 	
 	SaveToCSV saveFile;
@@ -88,6 +91,7 @@ public class BallTosser : MonoBehaviour {
         }
 		
         if(!isplayer){
+			myCollider = GetComponent<BoxCollider>();
 			myAnim = GetComponent<Animator>();
 			myBall.SetActive(haveBall);
 		}
@@ -317,7 +321,7 @@ public class BallTosser : MonoBehaviour {
 		if (throwSide)
         {
 			rightTosser.UpdateLookTo(ballTrans);
-			leftTosser.prepareToTakeBall(isplayer,throwSide);
+			leftTosser.prepareToTakeBall(isplayer,throwSide);							
 		}
 		else{
 			leftTosser.UpdateLookTo(ballTrans);
@@ -338,6 +342,13 @@ public class BallTosser : MonoBehaviour {
         if(isplayer){
 			ballUI_right.texture = ballGhostImage;
 			ballUI_left.texture = ballGhostImage;
+			
+			//adjust collider on person to receive the ball
+			if(throwSide)
+				leftTosser.myCollider.center = new Vector3(0f,0.12f,adjustStefCollider);
+			else
+				rightTosser.myCollider.center = new Vector3(0f,0.12f,adjustRemyCollider);
+				
 		}
 		else{
 			myBall.SetActive(false);	
@@ -429,6 +440,8 @@ public class BallTosser : MonoBehaviour {
 			}
 			else{
 				myBall.SetActive(true);
+				//resetting position of the collider, it only needs to change for the player
+				myCollider.center = new Vector3(0f,0.12f,0f);
 			}
 			haveBall = true;
 			
