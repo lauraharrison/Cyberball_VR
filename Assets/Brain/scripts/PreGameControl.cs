@@ -216,7 +216,7 @@ public class PreGameControl : MonoBehaviour {
 		}
 		else{
 			if(inPreGame){
-				myTransform.Rotate(0f,horizontal * rotateSpeed * Time.deltaTime, 0f);
+				//myTransform.Rotate(0f,horizontal * rotateSpeed * Time.deltaTime, 0f);
 				if(walking){
 					Vector3 cameraPos = CameraTransform.position;
 					cameraPos.y += Mathf.Sin(bobFreq*Time.time)*bobAmp;
@@ -263,7 +263,7 @@ public class PreGameControl : MonoBehaviour {
 					Debug.DrawRay(myTransform.position, middleTargetDir, Color.black, 100f);
 					Debug.DrawRay(myTransform.position, myTransform.forward, Color.red, 100f);
 					//check if player is looking to both the other players
-					if(Vector3.Angle(middleTargetDir, myTransform.forward) <= lookAngle){
+					//if(Vector3.Angle(middleTargetDir, myTransform.forward) <= lookAngle){
 						msgToStartUI_right.gameObject.SetActive(false);
 						msgToStartUI_left.gameObject.SetActive(false);
 						GetComponent<BallTosser>().ballUI_right.gameObject.SetActive(true);
@@ -273,7 +273,7 @@ public class PreGameControl : MonoBehaviour {
 						gameManager.ThrowBall();
 						
 						gameObject.GetComponent<PreGameControl>().enabled = false;
-					}
+					//}
 				}
 			}
 		}

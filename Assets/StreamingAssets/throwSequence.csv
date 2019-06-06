@@ -1,4 +1,6 @@
-throw To Player	;	waitTime;	gazeTime 
+throw To Player	;	waitTime	;	gazeTime
 True			;	3.3		;	5.0
-False			;	2.4		;	0
-true			;	2.4		;	0.5
+False			;	2.4		;	0.0
+True			;	2.4		;	0.5
+True			;	2.4		;	0.5
+False			;	3.0		;	2.0

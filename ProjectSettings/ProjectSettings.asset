@@ -273,6 +273,7 @@ PlayerSettings:
     m_Enabled: 1
     m_Devices:
     - OpenVR
+    - Oculus
   - m_BuildTarget: Tizen
     m_Enabled: 0
     m_Devices: []
@@ -434,6 +435,9 @@ PlayerSettings:
   switchUdpSendBufferSize: 9
   switchUdpReceiveBufferSize: 42
   switchSocketBufferEfficiency: 4
+  switchSocketInitializeEnabled: 1
+  switchNetworkInterfaceManagerInitializeEnabled: 1
+  switchPlayerConnectionEnabled: 1
   ps4NPAgeRating: 12
   ps4NPTitleSecret: 
   ps4NPTrophyPackPath: 
